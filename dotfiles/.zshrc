@@ -1,0 +1,1 @@
+/home/johan/Dropbox/Programmering/Linux/linux-configs/.zshrc
