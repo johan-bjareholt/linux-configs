@@ -6,14 +6,15 @@
 
 ########## Variables
 
-dir=~/Dropbox/Programmering/Linux/linux-configs/dotfiles                    # dotfiles directory
-olddir=~/Dropbox/Programmering/Linux/linux-configs/dotfiles_old             # old dotfiles backup directory
+cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+dir=$cwd/dotfiles                    # dotfiles directory
+olddir=$cwd/dotfiles_old             # old dotfiles backup directory
 files="zshrc config/awesome oh-my-zsh"    # list of files/folders to symlink in homedir
 
 ##########
 
 # create dotfiles_old in homedir
-echo "Creating $olddir for backup of any existing dotfiles in ~"
+echo "Creating $olddir for backup of any existing dotfiles"
 mkdir -p $olddir
 echo "...done"
 
@@ -22,9 +23,9 @@ echo "Changing to the $dir directory"
 cd $dir
 echo "...done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
+# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
+    echo "Moving existing $file dotfiles from ~ to $olddir"
     mv ~/.$file $olddir
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
