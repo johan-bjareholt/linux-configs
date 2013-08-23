@@ -57,15 +57,8 @@ layouts =
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    awful.layout.suit.max.fullscreen
 }
 -- }}}
 
@@ -75,9 +68,9 @@ layouts =
 tags = {}
 -- Each screen has its own tag table.
 -- Screen 1
-tags[1] = awful.tag({ 'Main', 'www', 'programming', 'game', 'movies'},  s, layouts[1])
+tags[1] = awful.tag({ 'Main', 'Www', 'Programming', 'Game', 'Movies'},  s, layouts[1])
 -- Screen 2
-tags[2] = awful.tag({ 'term1', 'www1', 'www2', 'chat' }, s, layouts[1])
+-- tags[2] = awful.tag({ 'Term1', 'Www1', 'Www2', 'Chat' }, s, layouts[1])
 
 -- }}}
 
