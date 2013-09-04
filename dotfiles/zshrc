@@ -17,6 +17,12 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+## Make speedup
+NC=`cat /proc/cpuinfo | grep processor | wc -l`
+alias make="make -j$NC"
+
+
+
 ## Min PS1
 autoload -U colors && colors
 #PS1='${uname -n}{$reset_color%}@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[00m\]\$ '
