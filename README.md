@@ -1,11 +1,18 @@
 linux-configs
 =============
 
-These are all of my linux dotfiles, and some other nice stuff i use to config a newly installed linux machine to my likings!
+This is a set of my linux configs.
+If you want to try it, run the startup script (obviously)
 
-####Make dotfiles symlinks.sh
-It is a modified version version of the script from 
-http://blog.smalleycreative.com/tutorials/using-git-and-github-to-manage-your-dotfiles/
+####Setup script
+Automatically does all the commands for me
 
-####Make dropbox symlinks.sh
-Made by me
+####Dropbox symlinks
+I don't want to cd to ~/Dropbox/Documents everytime, keep it simple with ~/Documents.
+
+####Dotfile syncing
+Well, noone likes to have seperate zshrcs and awesome configs right?
+
+This is how you fast and easily manage it all like a champ!
+
+It is based on this script: http://blog.smalleycreative.com/tutorials/using-git-and-github-to-manage-your-dotfiles/
