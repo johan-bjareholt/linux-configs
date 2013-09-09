@@ -13,6 +13,7 @@ alias dev_appserver="python /usr/share/google_appengine/dev_appserver.py"
 alias appcfg="python /usr/share/google_appengine/appcfg.py"
 
 # ls aliases
+alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'

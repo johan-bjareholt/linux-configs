@@ -6,6 +6,10 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
+-- Volume script
+-- require("volume")
+-- Composition manager (Transparency)
+awful.util.spawn_with_shell("xcompmgr -cF &")
 
 -- Load Debian menu entries
 require("debian.menu")
@@ -37,7 +41,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("/home/johan/.config/awesome/themes/mine/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -54,37 +58,39 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
-    awful.layout.suit.fair,
-    awful.layout.suit.max.fullscreen
+    awful.layout.suit.floating,
+    awful.layout.suit.max.fullscreen,
 }
 -- }}}
 
 -- {{{ Tags
-
 -- Define a tag table which hold all screen tags.
 tags = {}
--- Each screen has its own tag table.
--- Screen 1
-tags[1] = awful.tag({ 'Main', 'Www', 'Programming', 'Game', 'Movies'},  s, layouts[1])
--- Screen 2
--- tags[2] = awful.tag({ 'Term1', 'Www1', 'Www2', 'Chat' }, s, layouts[1])
-
+tags[1] = awful.tag({'Main', 'Programming', 'Gaming', 'Video'}, 1, layouts[1])
+tags[2] = awful.tag({'Www', 'Term', 'Music'}, 2, layouts[2])
+-- Default tag config was:
+-- for s = 1, screen.count() do
+--     -- Each screen has its own tag table.
+--     tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+-- end
 -- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
+
+-- Imports xdg-appmenu
+require("appmenu")
+
 myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "update appmenu", terminal .. "python awesome-xdg-menu.py > ~/.config/awesome/" },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
+mymainmenu = awful.menu({ items = { { "Apps", myappmenu, beautiful.awesome_icon },
+                                    { "awesome", myawesomemenu },
                                     { "open terminal", terminal }
                                   }
                         })
