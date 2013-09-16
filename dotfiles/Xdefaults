@@ -1,0 +1,14 @@
+URxvt*transparent: true
+URxvt*shading: 20
+URxvt*saveLines: 12000
+URxvt*foreground: White
+URxvt*background: Black
+
+# Font
+URxvt*font: xft:Liberation Mono:pixelsize=13:antialias=true:hinting=true
+URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=13:antialias=true:hinting=true
+
+URxvt*color4: RoyalBlue
+URxvt*color12: RoyalBlue
+URxvt*scrollBar: false
+URxvt*scrollstyle: rxvt
