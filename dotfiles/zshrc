@@ -22,7 +22,14 @@ alias l='ls -CF'
 NC=`cat /proc/cpuinfo | grep processor | wc -l`
 alias make="make -j$NC"
 
+## Bspwm fix
+export XDG_CONFIG_HOME="/home/johan/.config"
+export BSPWM_SOCKET="/tmp/bspwm-socket"
+path=('/home/johan/.config/bspwm/panel/' $path)
+export path
 
+# Plex home theater git fix
+export XBMC_HOME=/usr/share/XBMC
 
 ## Min PS1
 autoload -U colors && colors

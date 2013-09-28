@@ -7,7 +7,7 @@ require("beautiful")
 -- Notification library
 require("naughty")
 -- Volume script
--- require("volume")
+require("volume")
 -- Composition manager (Transparency)
 awful.util.spawn_with_shell("xcompmgr -cF &")
 
@@ -68,8 +68,14 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-tags[1] = awful.tag({'Main', 'Programming', 'Gaming', 'Video'}, 1, layouts[1])
-tags[2] = awful.tag({'Www', 'Term', 'Music'}, 2, layouts[2])
+for s = 1, screen.count() do
+    if s == 1 then
+        tags[1] = awful.tag({'Www','Programming', 'Gaming', 'Video'}, 1, layouts[1])
+    end
+    if s == 2 then
+        tags[2] = awful.tag({'Term', 'Www2', 'Music'}, 2, layouts[2])
+    end
+end
 -- Default tag config was:
 -- for s = 1, screen.count() do
 --     -- Each screen has its own tag table.
@@ -151,6 +157,8 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+
+-- }}}
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
@@ -182,12 +190,13 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        volume_widget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
--- }}}
+
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -228,6 +237,14 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
+
+    -- Volume control
+    awful.key({ }, "XF86AudioRaiseVolume", function ()
+        awful.util.spawn("amixer set Master 3dB+") end),
+    awful.key({ }, "XF86AudioLowerVolume", function ()
+        awful.util.spawn("amixer set Master 3dB-") end),
+    awful.key({ }, "XF86AudioMute", function ()
+        awful.util.spawn("amixer sset Master toggle") end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),

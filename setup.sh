@@ -12,7 +12,7 @@ dotfiles () {
     cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     dir=$cwd/dotfiles                    # dotfiles directory
     olddir=$cwd/dotfiles_old             # old dotfiles backup directory
-    files="zshrc config/awesome oh-my-zsh"    # list of files/folders to symlink in homedir
+    files="zshrc config/awesome oh-my-zsh Xdefaults"    # list of files/folders to symlink in homedir
 
     # create dotfiles_old in homedir
     echo "Creating $olddir for backup of any existing dotfiles"
@@ -26,7 +26,7 @@ dotfiles () {
 
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
     for file in $files; do
-        if [ $file == "config/awesome" ]; then
+        if [ $file=="config/awesome" ]; then
             echo "To be able to run this awesome config, you need to have feh and xcompmgr installed"
             if [ -f /etc/debian_version ]; then
                 echo "Would you like me to apt-get them for you? (y/n): "
@@ -61,7 +61,7 @@ for section in dotfiles dropbox; do
     echo "Would you like to setup $section? (y/n): "
     read prompt
     echo
-    if [ $prompt == y ]; then
+    if [ $prompt==y ]; then
         `echo $section`
     fi
 done
