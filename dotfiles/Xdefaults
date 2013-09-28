@@ -1,6 +1,5 @@
 URxvt*transparent: true
-#URxvt*tintColor: Blue
-URxvt*shading: 40
+URxvt*shading: 20
 URxvt*saveLines: 12000
 URxvt*foreground: White
 URxvt*background: Black
@@ -9,8 +8,7 @@ URxvt*background: Black
 URxvt*font: xft:Liberation Mono:pixelsize=13:antialias=true:hinting=true
 URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=13:antialias=true:hinting=true
 
-#URxvt*font:-*-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
-#URxvt*boldFont:-*-courier-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
 URxvt*color4: RoyalBlue
 URxvt*color12: RoyalBlue
 URxvt*scrollBar: false
+URxvt*scrollstyle: rxvt
