@@ -13,16 +13,26 @@ alias dev_appserver="python /usr/share/google_appengine/dev_appserver.py"
 alias appcfg="python /usr/share/google_appengine/appcfg.py"
 
 # ls aliases
+alias e='vim'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias alsaeq='alsamixer -D equal'
+
+
+
+
 
 ## Make speedup
 NC=`cat /proc/cpuinfo | grep processor | wc -l`
 alias make="make -j$NC"
 
-## Bspwm fix
+
+
+## Application fixes
+
+# Bspwm fix
 export XDG_CONFIG_HOME="/home/johan/.config"
 export BSPWM_SOCKET="/tmp/bspwm-socket"
 path=('/home/johan/.config/bspwm/panel/' $path)
@@ -30,6 +40,9 @@ export path
 
 # Plex home theater git fix
 export XBMC_HOME=/usr/share/XBMC
+
+
+
 
 ## Min PS1
 autoload -U colors && colors
@@ -51,7 +64,7 @@ RPROMPT="[%{$fg_no_bold[yellow]%}%!%{$reset_color%}]"
 
 
 
-# Hisrory
+# History
 setopt histignorealldups sharehistory
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -60,6 +73,9 @@ HISTFILE=~/.zsh_history
 # Use modern completion system
 autoload -Uz compinit
 compinit
+
+
+
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -77,3 +93,12 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+
+
+## Home, end and delete button fix
+# key bindings
+typeset -g -A key
+bindkey '^[OH' beginning-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[OF' end-of-line

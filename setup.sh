@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 dotfiles () {
     ##########
@@ -12,11 +12,8 @@ dotfiles () {
     cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     dir=$cwd/dotfiles                    # dotfiles directory
     olddir=$cwd/dotfiles_old             # old dotfiles backup directory
-<<<<<<< HEAD
-    files="zshrc config/awesome oh-my-zsh Xdefaults"    # list of files/folders to symlink in homedir
-=======
-    files="zshrc Xdefaults config/awesome oh-my-zsh"    # list of files/folders to symlink in homedir
->>>>>>> 355e3d3420b9cfbe5e8141f3022d658c65153959
+
+    files="zshrc config/awesome oh-my-zsh Xdefaults vimrc xmonad"   # list of files/folders to symlink in homedir
 
     # create dotfiles_old in homedir
     echo "Creating $olddir for backup of any existing dotfiles"
@@ -30,11 +27,7 @@ dotfiles () {
 
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
     for file in $files; do
-<<<<<<< HEAD
-        if [ $file=="config/awesome" ]; then
-=======
         if [ $file = "config/awesome" ]; then
->>>>>>> 355e3d3420b9cfbe5e8141f3022d658c65153959
             echo "To be able to run this awesome config, you need to have feh and xcompmgr installed"
             if [ -f /etc/debian_version ]; then
                 echo "Would you like me to apt-get them for you? (y/n): "
@@ -55,7 +48,7 @@ dotfiles () {
 dropbox () {
     echo "Starting symlinking of dropbox folders..."
     echo "Linking programming folder"
-    ln -s ~/Dropbox/Programmering/ ~/Programming
+    ln -s ~/Dropbox/Programming/ ~/Programming
     echo "Linking photos folder"
     ln -s ~/Dropbox/Photos/ ~/Pictures/Dropbox
     echo "Linking documents folder"
@@ -69,11 +62,7 @@ for section in dotfiles dropbox; do
     echo "Would you like to setup $section? (y/n): "
     read prompt
     echo
-<<<<<<< HEAD
-    if [ $prompt==y ]; then
-=======
     if [ $prompt = y ]; then
->>>>>>> 355e3d3420b9cfbe5e8141f3022d658c65153959
         `echo $section`
     fi
 done

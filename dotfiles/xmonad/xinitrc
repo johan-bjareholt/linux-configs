@@ -1,0 +1,5 @@
+xrdb -merge .Xresources
+sh '/home/johan/.xmonad/setbackground.sh' &
+redshift -t 6500:5200 &
+
+/bin/xmonad
