@@ -1,8 +1,7 @@
-URxvt*transparent: true
-URxvt*shading: 20
+URxvt*depth: 32
+URxvt*background: [75]#000000
 URxvt*saveLines: 12000
 URxvt*foreground: White
-URxvt*background: Black
 
 # Font
 URxvt*font: xft:Liberation Mono:pixelsize=14:antialias=true:hinting=true

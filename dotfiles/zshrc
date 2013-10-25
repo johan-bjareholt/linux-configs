@@ -21,6 +21,7 @@ alias l='ls -CF'
 alias alsaeq='alsamixer -D equal'
 
 
+alias nano='vim'
 
 
 
@@ -97,7 +98,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
 ## Home, end and delete button fix
-# key bindings
+## key bindings
 typeset -g -A key
 bindkey '^[OH' beginning-of-line
 bindkey '^[[3~' delete-char

@@ -5,8 +5,12 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Named
+import XMonad.Layout.Fullscreen
+import XMonad.Hooks.ManageDocks
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -23,23 +27,25 @@ myTerminal = "urxvt"
 
 -- myLayout = spacing 2 $ Tall 1 (3/100) (1/2)
 --
-myLayout = tiled ||| Mirror tiled ||| noBorders Full
-    where
-    -- default tiling algorithm partitions the screen into two panes
-    tiled   = Tall nmaster delta ratio
-    -- The default number of windows in the master pane
-    nmaster = 1
-    -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
-    -- Percent of screen to increment by when resizing panes
-    delta   = 3/100
+myLayout = avoidStruts (
+    named "Tiled" $ smartSpacing 10 $ Tall 1 (3/100) (1/2) |||
+    -- Mirror (Tall 1 (3/100) (1/2))) |||
+    noBorders (named "Full" $ fullscreenFull Full)) 
+
+-- avoidStruts ( 
+    -- mode (master add/max) (default proportion occupied by master)
+    -- Tall (3/100) (1/2) ||| 
+    -- Mirror tile (3/100) (1/2)) ||| 
+    -- noBorders Full ||| 
+    -- noBorders (fullscreenFull Full)
 
 -- put a 2px space around every window
 myBorderWidth = 1 
 -- Sets window border width to 1px
+myNormalBorderColor = "#000000"
+myFocusedBorderColor = "#2222bb"
 
-
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["Term","Www","Prog","Music","Social","Fullscrn","7","8"]
 -- Sets name of the workspaces
 
 
@@ -81,6 +87,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+    ,((modm, xK_f     ), sendMessage ToggleStruts)
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
@@ -90,6 +97,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))
     -- Restart xmonad
     , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((0, 0x1008ff11), spawn "amixer set Master 1- unmute | notify-send 'Volume' 'Lowered volume'")
+    , ((0, 0x1008ff13), spawn "amixer set Master 1+ unmute | notify-send 'Volume' 'Raised volume'")
+    , ((0, 0x1008ff12), spawn "amixer set Master toggle | notify-send 'Volume' 'Toggled volume'")
     ]
     ++
     --
@@ -121,28 +131,46 @@ myLogHook = return ()
 
 
 ------------------------------------------------------------------------
+-- Managehook
+
+-- stuff to do when a new window is opened
+myManageHook = composeAll [manageDocks]
+
+
+------------------------------------------------------------------------
+-- Event handling
+
+-- | Defines a custom handler function for X Events. The function should
+-- return (All True) if the default handler is to be run afterwards.
+-- To combine event hooks, use mappend or mconcat from Data.Monoid.
+handleEventHook :: Event -> X All
+handleEventHook _ = return (All True)
+
+------------------------------------------------------------------------
 -- Startup hook
  
 -- Perform an arbitrary action each time xmonad starts or is restarted
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
 
-myStartupHook = return ()
+-- myStartupHook = return ()
 
 
 ------------------------------------------------------------------------
 -- Apply
 
-main = xmonad $ defaultConfig
-    { -- General section
+main = xmonad =<< xmobar defaultConfig {
+      -- General section
       terminal           = myTerminal
     , modMask            = myModMask
     , logHook            = myLogHook
-    , startupHook    = myStartupHook
+    , manageHook         = myManageHook
+    -- , startupHook        = myStartupHook
     -- Keyboard
     , keys               = myKeys
     -- Style and appearance
+    , workspaces         = myWorkspaces
     , borderWidth        = myBorderWidth
     , layoutHook         = myLayout
-    , normalBorderColor  = "#dddddd"
-    , focusedBorderColor = "#7788ff" }
+    , normalBorderColor  = myNormalBorderColor
+    , focusedBorderColor = myFocusedBorderColor }

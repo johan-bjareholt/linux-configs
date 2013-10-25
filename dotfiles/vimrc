@@ -1,2 +1,15 @@
 set number
 syntax on
+
+" Arrow keys removal
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+
+" This is for the ctrl+n NERDTree toggle
+map <C-n> :NERDTreeToggle<CR>
+
+" Bugfix for NERDTree (if nerdtree is the only window open, you cannot close vim)
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
