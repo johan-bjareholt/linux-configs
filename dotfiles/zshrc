@@ -21,9 +21,6 @@ alias l='ls -CF'
 alias alsaeq='alsamixer -D equal'
 
 
-alias nano='vim'
-
-
 
 ## Make speedup
 NC=`cat /proc/cpuinfo | grep processor | wc -l`

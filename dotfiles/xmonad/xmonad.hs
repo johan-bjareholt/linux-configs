@@ -97,9 +97,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_x     ), io (exitWith ExitSuccess))
     -- Restart xmonad
     , ((modm              , xK_x     ), spawn "xmonad --recompile; xmonad --restart")
-    , ((0, 0x1008ff11), spawn "amixer set Master 1- unmute | notify-send 'Volume' 'Lowered volume'")
-    , ((0, 0x1008ff13), spawn "amixer set Master 1+ unmute | notify-send 'Volume' 'Raised volume'")
-    , ((0, 0x1008ff12), spawn "amixer set Master toggle | notify-send 'Volume' 'Toggled volume'")
+    , ((0, 0x1008ff11), spawn "/home/johan/.xmonad/scripts/volume.sh lower")
+    , ((0, 0x1008ff13), spawn "/home/johan/.xmonad/scripts/volume.sh raise")
+    , ((0, 0x1008ff12), spawn "/home/johan/.xmonad/scripts/volume.sh toggle")
     ]
     ++
     --

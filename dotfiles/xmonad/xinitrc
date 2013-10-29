@@ -1,5 +1,8 @@
 xrandr --output CRT1 --primary
 xrdb -merge .Xresources
+if (hostname=='johan-netbook'); then
+    setxkbmap -model thinkpad -layout se
+fi
 -- compton -cCfb -D 3.5 &
 compton &
 sh '/home/johan/.xmonad/setbackground.sh' &
