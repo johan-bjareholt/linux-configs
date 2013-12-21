@@ -13,7 +13,7 @@ dotfiles () {
     dir=$cwd/dotfiles                    # dotfiles directory
     olddir=$cwd/dotfiles_old             # old dotfiles backup directory
 
-    files="zshrc config/awesome oh-my-zsh Xdefaults vimrc xmonad"   # list of files/folders to symlink in homedir
+    files="zshrc config/awesome oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon"   # list of files/folders to symlink in homedir
 
     # create dotfiles_old in homedir
     echo "Creating $olddir for backup of any existing dotfiles"

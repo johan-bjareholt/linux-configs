@@ -7,6 +7,10 @@ promptinit
 
 
 ## Min del av scriptet!
+# Path variables
+export PATH=/opt/android-sdk/platform-tools:$PATH
+export PATH=/opt/android-sdk/tools:$PATH
+
 # Mina aliases
 alias findproc="ps aux | grep"
 alias dev_appserver="python /usr/share/google_appengine/dev_appserver.py"
@@ -96,7 +100,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 ## Home, end and delete button fix
 ## key bindings
-typeset -g -A key
-bindkey '^[OH' beginning-of-line
-bindkey '^[[3~' delete-char
-bindkey '^[OF' end-of-line
+##typeset -g -A key
+##bindkey '^[OH' beginning-of-line
+##bindkey '^[[3~' delete-char
+##bindkey '^[OF' end-of-line

@@ -9,7 +9,7 @@ require("naughty")
 -- Volume script
 require("volume")
 -- Composition manager (Transparency)
-awful.util.spawn_with_shell("xcompmgr -cF &")
+awful.util.spawn_with_shell("compton &")
 
 -- Load Debian menu entries
 require("debian.menu")

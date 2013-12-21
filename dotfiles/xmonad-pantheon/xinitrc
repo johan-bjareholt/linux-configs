@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Setup screens in xinerama
+$(
+xrandr --output CRT1 --mode 1920x1080 --primary
+xrandr --output CRT2 --pos 1920x26
+# Set background image
+feh --bg-scale /usr/share/backgrounds/Our\ Night\ Under\ The\ Stars.jpg
+) &
+
+# Setup composition manager
+xcompmgr &
+
+# Start panel
+wingpanel &
+
+# Startup apps
+sh $HOME/.xmonad-pantheon/startupapps.sh &
+
+exec xmonad
