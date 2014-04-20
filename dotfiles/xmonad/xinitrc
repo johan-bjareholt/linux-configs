@@ -1,0 +1,11 @@
+#!/bin/sh
+
+xrdb -merge .Xresources
+setxkbmap -layout se
+
+
+compton &
+#pypanel &
+sh '/home/johan/.xmonad/setbackground.sh' &
+
+/usr/bin/xmonad

@@ -1,12 +1,24 @@
 set number
 syntax on
 
+" Automatically adds curlybraces
+filetype indent on
+
+" Sets tab to 4 spaces
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
 " Arrow keys removal
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
+" Scrollwheel
+set mouse=a
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
 
 " This is for the ctrl+n NERDTree toggle
 map <C-n> :NERDTreeToggle<CR>

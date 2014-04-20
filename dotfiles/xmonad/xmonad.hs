@@ -19,13 +19,15 @@ import XMonad.Hooks.ManageDocks     -- dock/tray management
 import XMonad.Hooks.DynamicLog      -- Statusbar
 
 -- Utils
-import XMonad.Util.Run
+-- import XMonad.Util.Run
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 -- Sets super as mod key
-myModMask       = mod4Mask
+-- myModMask       = mod4Mask
+-- Sets alt as mod key
+myModMask = mod1Mask
 
 -- Sets default terminal
 myTerminal = "urxvt"

@@ -8,13 +8,18 @@ promptinit
 
 ## Min del av scriptet!
 # Path variables
+export ANDROID_HOME=/opt/android-sdk/
 export PATH=/opt/android-sdk/platform-tools:$PATH
 export PATH=/opt/android-sdk/tools:$PATH
+export PATH=/opt/android-ndk/:$PATH
+export PATH=/opt/ant/bin:$PATH
+# Library paths
+export PATH=/usr/local/lib:$PATH
 
 # Mina aliases
 alias findproc="ps aux | grep"
-alias dev_appserver="python /usr/share/google_appengine/dev_appserver.py"
-alias appcfg="python /usr/share/google_appengine/appcfg.py"
+alias dev_appserver="python /opt/google/appengine/dev_appserver.py"
+alias appcfg="python /opt/google/appengine/appcfg.py"
 
 # ls aliases
 alias e='vim'
@@ -98,9 +103,44 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
 
-## Home, end and delete button fix
-## key bindings
-##typeset -g -A key
-##bindkey '^[OH' beginning-of-line
-##bindkey '^[[3~' delete-char
-##bindkey '^[OF' end-of-line
+
+# Special key fix
+
+typeset -A key
+
+key[Home]=${terminfo[khome]}
+
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+key[Up]=${terminfo[kcuu1]}
+key[Down]=${terminfo[kcud1]}
+key[Left]=${terminfo[kcub1]}
+key[Right]=${terminfo[kcuf1]}
+key[PageUp]=${terminfo[kpp]}
+key[PageDown]=${terminfo[knp]}
+
+# setup key accordingly
+[[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
+[[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
+[[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
+[[ -n "${key[Delete]}"   ]]  && bindkey  "${key[Delete]}"   delete-char
+[[ -n "${key[Up]}"       ]]  && bindkey  "${key[Up]}"       up-line-or-history
+[[ -n "${key[Down]}"     ]]  && bindkey  "${key[Down]}"     down-line-or-history
+[[ -n "${key[Left]}"     ]]  && bindkey  "${key[Left]}"     backward-char
+[[ -n "${key[Right]}"    ]]  && bindkey  "${key[Right]}"    forward-char
+[[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
+[[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
+
+# Finally, make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init () {
+        printf '%s' "${terminfo[smkx]}"
+    }
+    function zle-line-finish () {
+        printf '%s' "${terminfo[rmkx]}"
+    }
+    zle -N zle-line-init
+    zle -N zle-line-finish
+fi

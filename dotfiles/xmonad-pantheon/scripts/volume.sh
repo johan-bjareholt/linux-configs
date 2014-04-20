@@ -2,7 +2,7 @@
 
 usage="usage: $0 -c {up|down|mute} [-i increment] [-m mixer]"
 command=
-increment=5%
+increment=3%
 mixer=Master
 
 while getopts i:m:h o
@@ -40,6 +40,9 @@ if [ "$command" = "mute" ]; then
         icon_name="notification-audio-volume-muted"
         amixer set $mixer mute
     else
+        for channel in 'Master' 'Headphone' 'Front' 'Surround' 'Center' 'LFE' 'Side'; do
+            amixer set $channel unmute
+        done
         display_volume=$(amixer set $mixer unmute | grep -m 1 "%]" | cut -d "[" -f2|cut -d "%" -f1)
     fi
 fi

@@ -13,7 +13,7 @@ dotfiles () {
     dir=$cwd/dotfiles                    # dotfiles directory
     olddir=$cwd/dotfiles_old             # old dotfiles backup directory
 
-    files="zshrc config/awesome oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon"   # list of files/folders to symlink in homedir
+    files="zshrc config/awesome config/awesome3.2 oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon"   # list of files/folders to symlink in homedir
 
     # create dotfiles_old in homedir
     echo "Creating $olddir for backup of any existing dotfiles"
@@ -27,16 +27,6 @@ dotfiles () {
 
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
     for file in $files; do
-        if [ $file = "config/awesome" ]; then
-            echo "To be able to run this awesome config, you need to have feh and xcompmgr installed"
-            if [ -f /etc/debian_version ]; then
-                echo "Would you like me to apt-get them for you? (y/n): "
-                read prompt
-                if [ $prompt = y ]; then
-                    sudo apt-get install feh xcompmgr
-                fi
-            fi
-        fi
         echo "Moving existing $file dotfiles from ~ to $olddir"
         mv ~/.$file $olddir
         echo "Creating symlink to $file in home directory."

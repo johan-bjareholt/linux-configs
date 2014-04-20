@@ -44,7 +44,7 @@ myBorderWidth = 0
 myNormalBorderColor = "#000000"
 myFocusedBorderColor = "#2222bb"
 
-myWorkspaces    = ["Term","Www","Prog","Music","Social","Fullscrn","7","8"]
+myWorkspaces    = ["Term","Www","Dev","Music","Social","Full","Misc"]
 -- Sets name of the workspaces
 
 
@@ -80,6 +80,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_h     ), sendMessage Shrink)
     -- Expand the master area
     , ((modm,               xK_l     ), sendMessage Expand)
+    -- Toggle the status bar gap
+    -- Use this binding with avoidStruts from Hooks.ManageDocks.
+    -- See also the statusBar function from Hooks.DynamicLog.
+    , ((modm              , xK_b     ), sendMessage ToggleStruts)
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
     -- Increment the number of windows in the master area
