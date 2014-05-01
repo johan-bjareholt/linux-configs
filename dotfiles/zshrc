@@ -7,7 +7,9 @@ promptinit
 
 
 ## Min del av scriptet!
-# Path variables
+
+## Path variables
+# Android paths
 export ANDROID_HOME=/opt/android-sdk/
 export PATH=/opt/android-sdk/platform-tools:$PATH
 export PATH=/opt/android-sdk/tools:$PATH
@@ -15,6 +17,11 @@ export PATH=/opt/android-ndk/:$PATH
 export PATH=/opt/ant/bin:$PATH
 # Library paths
 export PATH=/usr/local/lib:$PATH
+# JRE and JDK paths
+export PATH=/opt/java/jre/bin:$PATH
+export PATH=/opt/java/jdk/bin:$PATH
+# Go home
+export GOPATH=~/.go
 
 # Mina aliases
 alias findproc="ps aux | grep"
