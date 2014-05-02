@@ -1,0 +1,13 @@
+#!/bin/bash
+$(
+  if [ "$HOSTNAME" = "johan-desktop" ]
+    then
+      xrandr --output DVI-0 --mode 1920x1080
+      xrandr --output VGA-0 --left-of DVI-0
+  fi
+
+  feh --bg-fill ~/Dropbox/Photos/Wallpapers/Skyrim.jpg
+) &
+
+sh $HOME/.config/dwm/autostart.sh &
+exec dwm
