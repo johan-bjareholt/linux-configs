@@ -15,13 +15,20 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
+" Encoding 
+let g:Powerline_symbols = 'unicode'
+set laststatus=2
+set encoding=utf-8
+set t_Co=256
+
+" Powerline
+"set fillchars+=stl:\ ,stlnc:\
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+
 " Scrollwheel
 set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
-" This is for the ctrl+n NERDTree toggle
-map <C-n> :NERDTreeToggle<CR>
-
-" Bugfix for NERDTree (if nerdtree is the only window open, you cannot close vim)
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

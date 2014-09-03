@@ -3,11 +3,19 @@
 ** Compile with:
 ** gcc -Wall -pedantic -std=c99 -lX11 status.c
 */
+
+#define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
+#include <string.h>
 #include <X11/Xlib.h>
+
+#define timeval time_timeval
+#define timespec time_timespec
+#include <alsa/asoundlib.h>
+#include <alsa/mixer.h>
 
 static Display *dpy;
 
@@ -16,24 +24,45 @@ void setstatus(char *str) {
 	XSync(dpy, False);
 }
 
-float getfreq(char *file) {
-	FILE *fd;
-	char *freq; 
-	float ret;
+char* getcmd(char* cmd){
+    char *buffer = malloc(1000);
 
-	freq = malloc(10);
-	fd = fopen(file, "r");
-	if(fd == NULL) {
-		fprintf(stderr, "Cannot open '%s' for reading.\n", file);
-		exit(1);
-	}
+    FILE* pipe = popen(cmd, "r");
 
-	fgets(freq, 10, fd);
-	fclose(fd);
+    if (NULL == pipe) {
+        perror("pipe");
+            exit(1);
+    } 
 
-	ret = atof(freq)/1000000;
-	free(freq);
-	return ret;
+    fgets(buffer, sizeof(buffer), pipe);
+
+    pclose(pipe);
+    buffer[strlen(buffer)] = '\0';
+    return buffer;
+}
+
+float getvolume(snd_mixer_t *handle, const char* vol_ch)
+{
+	int mute = 0;
+	long vol = 0, max = 0, min = 0;
+	snd_mixer_elem_t *pcm_mixer, *max_mixer;
+	snd_mixer_selem_id_t *vol_info, *mute_info;
+
+	/*ToDo: maybe move all this to main?*/
+	snd_mixer_handle_events(handle);
+	snd_mixer_selem_id_malloc(&vol_info);
+	snd_mixer_selem_id_malloc(&mute_info);
+	snd_mixer_selem_id_set_name(vol_info, vol_ch);
+	snd_mixer_selem_id_set_name(mute_info, vol_ch);
+	pcm_mixer = snd_mixer_find_selem(handle, vol_info);
+	max_mixer = snd_mixer_find_selem(handle, mute_info);
+	snd_mixer_selem_get_playback_volume_range(pcm_mixer, &min, &max);
+	snd_mixer_selem_get_playback_volume(pcm_mixer, 0, &vol);
+	snd_mixer_selem_get_playback_switch(max_mixer, 0, &mute);
+	snd_mixer_selem_id_free(vol_info);
+	snd_mixer_selem_id_free(mute_info);
+
+    return ((float)vol/(float)max)*100;
 }
 
 char *getdatetime() {
@@ -59,11 +88,11 @@ char *getdatetime() {
 	return buf;
 }
 
-int getbattery() {
+float getbattery() {
 	FILE *fd;
 	int energy_now, energy_full, voltage_now;
 
-	fd = fopen("/sys/class/power_supply/BAT0/energy_now", "r");
+	fd = fopen("/sys/class/power_supply/BAT0/charge_now", "r");
 	if(fd == NULL) {
 		fprintf(stderr, "Error opening energy_now.\n");
 		return -1;
@@ -72,7 +101,7 @@ int getbattery() {
 	fclose(fd);
 
 
-	fd = fopen("/sys/class/power_supply/BAT0/energy_full", "r");
+	fd = fopen("/sys/class/power_supply/BAT0/charge_full", "r");
 	if(fd == NULL) {
 		fprintf(stderr, "Error opening energy_full.\n");
 		return -1;
@@ -94,12 +123,30 @@ int getbattery() {
 	return battery;
 }
 
-int main(void) {
+int main(int argc, char* argv[]) {
 	char *status;
-	float cpu0, cpu1;
+    char volume[20];
 	char *datetime;
-	int bat0;
+	char bat[20] = "";
+    int laptop = 0;
+    char hostname[30];
+    gethostname(hostname, 30); 
+    printf("%s\n", hostname);
+    
+    if (strcmp(hostname, "johan-laptop") == 0){
+        laptop = 1;
+        printf("This is a laptop\n");
+    }
+    else {
+        printf("This is not a laptop\n");
+    }
 
+    snd_mixer_t *handle;
+	snd_mixer_open(&handle, 0);
+	snd_mixer_attach(handle, "default");
+	const char* vol_ch = "Master";
+	snd_mixer_selem_register(handle, NULL, NULL);
+	snd_mixer_load(handle);
 
 	if (!(dpy = XOpenDisplay(NULL))) {
 		fprintf(stderr, "Cannot open display.\n");
@@ -110,12 +157,15 @@ int main(void) {
 		exit(1);
 	
 
-	for (;;sleep(1)) {
-		cpu0 = getfreq("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
-		cpu1 = getfreq("/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq");
-		datetime = getdatetime();
-		bat0 = getbattery();
-		snprintf(status, 200, "%0.2f, %0.2f | %d%% | %s", cpu0, cpu1, bat0, datetime);
+	for (;;usleep(1000000)) {
+	    datetime = getdatetime();
+        //volume = getcmd("$HOME/Scripts/volume\\ get.sh");
+        sprintf(volume, "%.0f%", getvolume(handle, vol_ch));
+		if (laptop){
+            sprintf(bat, " Bat: %.0f% |", getbattery());
+        }
+
+        snprintf(status, 200, "Vol: %s% |%s %s ", volume, bat, datetime );
 
 		free(datetime);
 		setstatus(status);

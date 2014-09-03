@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Uncomment this line if you want to download ST too
+rm -r st-0.5*
 
-#git clone http://git.suckless.org/st/ 
-#cd st
+wget http://git.suckless.org/st/snapshot/st-0.5.tar.bz2
+tar xvf st-0.5.tar.bz2
+cd st-0.5
 
 # Transpacency patch
-#git apply ../transparency.diff
-
-cd st
+patch -p1 < ../transparency.diff
 
 # Change config to mine
 cp ../custom-config.h config.h

@@ -12,7 +12,7 @@ dotfiles () {
     dir=$cwd/dotfiles
 
     # list of files/folders to symlink in homedir
-    files="zshrc config/awesome config/awesome3.2 config/dwm oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon fonts config/fontconfig"
+    files="zshrc config/awesome config/awesome3.2 config/dwm oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon fonts zsh-powerline config/fontconfig config/powerline asoundrc ncmpcpp/config"
     
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
     cd $cwd/dotfiles

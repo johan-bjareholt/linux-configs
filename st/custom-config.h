@@ -5,9 +5,9 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "Liberation Mono:pixelsize=13:antialias=true:autohint=true";
+static char font[] = "Liberation mono:pixelsize=14:antialias=true:autohint=true";
 static int borderpx = 2;
-static char shell[] = "/bin/sh";
+static char shell[] = "/bin/zsh";
 
 /* Kerning / character bounding-box mutlipliers */
 static float cwscale = 1.0;
@@ -49,7 +49,7 @@ static char termname[] = "st-256color";
 static unsigned int tabspaces = 4;
 
 /* background opacity */
-static const int alpha = 0xcc;
+static const int alpha = 0xe0;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {

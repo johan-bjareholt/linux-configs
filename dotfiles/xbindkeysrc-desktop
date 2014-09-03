@@ -6,7 +6,7 @@
 "amixer -q -c 0 set Master 2dB-"
    XF86AudioLowerVolume
 
-"~/Scripts/toggle\ volume.sh"
+"~/Scripts/volume\ toggle.sh"
     m:0x10 + c:121
     Mod2 + XF86AudioMute
 

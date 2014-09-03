@@ -1,13 +1,24 @@
 #!/bin/bash
+#xautolock -time 10 -locker "systemctl suspend" & 
+xbindkeys &
+compton &
+wmname LG3D & # Fixes gui bug in java applications
+setxkbmap se &
+
 $(
   if [ "$HOSTNAME" = "johan-desktop" ]
     then
-      xrandr --output DVI-0 --mode 1920x1080
-      xrandr --output VGA-0 --left-of DVI-0
+      xrandr --output DVI-D-0 --primary --mode 1920x1080
+      xrandr --output HDMI-1 --right-of DVI-D-0
+      xrandr --output DVI-I-0 --left-of DVI-D-0
   fi
 
-  feh --bg-fill ~/Dropbox/Photos/Wallpapers/Skyrim.jpg
+  feh --bg-fill ~/Dropbox/Photos/Wallpapers/Kerbal_Space_Program_Wallpaper.jpg
 ) &
 
-sh $HOME/.config/dwm/autostart.sh &
+$HOME/Programming/Linux/linux-configs/dwm/statusbar/statusbar &
+trayer --edge top --align right --transparent true --widthtype pixel --heighttype pixel --width 80 --height 10 --margin 260 --tint 0x000000 &
+
+dropboxd &
+
 exec dwm
