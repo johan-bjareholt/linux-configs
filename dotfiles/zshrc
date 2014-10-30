@@ -21,17 +21,18 @@ export PATH=$PATH:/usr/local/lib
 # JRE and JDK paths
 export PATH=$PATH:/opt/java/jre/bin
 export PATH=$PATH:/opt/java/jdk/bin
-# Go home
+# Go home, hah!
 export GOPATH=~/.go
 # Wine
 export WINEARCH=win32
 #
 export PATH="$PATH:/home/johan/.gem/ruby/2.1.0/bin"
+# App Engine
+export PATH=$PATH:/opt/google-appengine-go/
+export PATH=$PATH:/opt/google-appengine-python/
 
 # Mina aliases
 alias findproc="ps aux | grep"
-alias dev_appserver="python /opt/google/appengine/dev_appserver.py"
-alias appcfg="python /opt/google/appengine/appcfg.py"
 alias steam-wine="wine ~/.wine/drive_c/Program\ Files/Steam/Steam.exe"
 
 # ls aliases
@@ -42,6 +43,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias alsaeq='alsamixer -D equal'
 
+# UE4 oauth token
 
 # Path to music
 export pathtomusic=/home/johan/Music/

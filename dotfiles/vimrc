@@ -4,10 +4,8 @@ syntax on
 " Automatically adds curlybraces
 filetype indent on
 
-" Sets tab to 4 spaces
-set tabstop=4
-set shiftwidth=4
-set expandtab
+" Sets tab to tab 
+set noet ci pi sts=0 sw=4 ts=4
 
 " Arrow keys removal
 nnoremap <up> <nop>

@@ -4,8 +4,8 @@
 mpd_host                    = "localhost"
 mpd_port                    = "6600"
 mpd_music_dir               = "/media/raid/Music/Music/"
-allow_physical_files_deletion = "yes"
-allow_physical_directories_deletion = "yes"
+#allow_physical_files_deletion = "yes"
+#allow_physical_directories_deletion = "yes"
 
 
 
@@ -54,7 +54,6 @@ state_line_color            = "yellow"
 state_flags_color           = "green"
 progressbar_color           = "yellow"
 statusbar_color             = "cyan"
-visualizer_color            = "red"
 
 
 
