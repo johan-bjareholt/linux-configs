@@ -34,6 +34,7 @@ export PATH=$PATH:/opt/google-appengine-python/
 # Mina aliases
 alias findproc="ps aux | grep"
 alias steam-wine="wine ~/.wine/drive_c/Program\ Files/Steam/Steam.exe"
+alias wine='PULSE_LATENCY_MSEC=60 wine'
 
 # ls aliases
 alias e='vim'
@@ -44,6 +45,7 @@ alias l='ls -CF'
 alias alsaeq='alsamixer -D equal'
 
 # UE4 oauth token
+export OAUTH_TOKEN=3d95f10248c662686c98c9c5e89cadab4d6402aa
 
 # Path to music
 export pathtomusic=/home/johan/Music/

@@ -6,9 +6,9 @@ URxvt.letterSpace:	-1
 URxvt.saveLines:	12000
 URxvt.scrollBar:	false
 URxvt.color4:	RoyalBlue
-URxvt.background:	[75]#000000
-URxvt.boldFont:	xft:Liberation Mono:bold:pixelsize=13:antialias=true:hinting=true
-URxvt.font:	xft:Liberation Mono:pixelsize=13:antialias=true:hinting=true
+URxvt.background:	[90]#000000
+URxvt.boldFont:	xft:Liberation Mono:bold:pixelsize=15:antialias=true:hinting=true
+URxvt.font:	xft:Liberation Mono:pixelsize=15:antialias=true:hinting=true
 URxvt.scrollstyle:	rxvt
 URxvt.depth:	32
 URxvt.foreground:	White
