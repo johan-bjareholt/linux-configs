@@ -1,0 +1,16 @@
+#!/bin/sh
+MONITOR=$(bspc query -M -m)
+if [ $MONITOR = "DVI-I-0" ]; then
+	MONITOR_NUM=1
+fi
+if [ $MONITOR = "DVI-D-0" ]; then
+	MONITOR_NUM=2
+fi
+if [ $MONITOR = "HDMI-1" ]; then
+	MONITOR_NUM=3
+fi
+
+WORKSPACE=$MONITOR_NUM$1
+echo $WORKSPACE
+
+bspc desktop -f $WORKSPACE

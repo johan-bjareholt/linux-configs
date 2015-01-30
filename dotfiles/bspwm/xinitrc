@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Setup monitors
+$(
+	if [ "$HOSTNAME" = "johan-desktop" ]
+	  then
+		xrandr --output DVI-I-0 --pos 0x0
+		xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
+		xrandr --output HDMI-1 --right-of DVI-D-0
+	fi
+	# Set wallpaper
+	feh --no-xinerama --bg-fill ~/Downloads/whiterun\ triple\ monitor.png
+) &
+
+# Tray icons
+trayer \
+	--edge top \
+	--align right \
+	--transparent true \
+	--widthtype pixel \
+	--heighttype pixel \
+	--width 68 \
+	--height 20 \
+	--margin $((100+20)) \
+	--tint 0x000000 &
+
+# Autostart applications
+dropboxd &
+#~/.bspwm/panel & # panel
+
+
+
+
+compton &
+sxhkd -c ~/.bspwm/sxhkdrc &
+exec bspwm -c ~/.bspwm/bspwmrc

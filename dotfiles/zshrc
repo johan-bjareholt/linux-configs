@@ -30,6 +30,9 @@ export PATH="$PATH:/home/johan/.gem/ruby/2.1.0/bin"
 # App Engine
 export PATH=$PATH:/opt/google-appengine-go/
 export PATH=$PATH:/opt/google-appengine-python/
+# Ruby paths
+export PATH=$PATH:~/.gem/ruby/2.2.0/bin
+export PATH=$PATH:~/.gem/ruby/2.1.0/bin
 
 # Mina aliases
 alias findproc="ps aux | grep"

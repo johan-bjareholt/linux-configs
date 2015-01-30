@@ -8,10 +8,10 @@ setxkbmap se &
 $(
   if [ "$HOSTNAME" = "johan-desktop" ]
     then
-      xrandr --output DVI-D-0 --primary --mode 1920x1080
+      xrandr --output DVI-I-0 --pos 0x0
+      xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
       xrandr --output HDMI-1 --right-of DVI-D-0
-      xrandr --output DVI-I-0 --left-of DVI-D-0
-  fi
+ fi
 
   feh --bg-fill ~/Dropbox/Photos/Wallpapers/Kerbal_Space_Program_Wallpaper.jpg
 ) &

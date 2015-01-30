@@ -6,7 +6,7 @@ URxvt.letterSpace:	-1
 URxvt.saveLines:	12000
 URxvt.scrollBar:	false
 URxvt.color4:	RoyalBlue
-URxvt.background:	[90]#000000
+URxvt.background:	[80]#000000
 URxvt.boldFont:	xft:Liberation Mono:bold:pixelsize=15:antialias=true:hinting=true
 URxvt.font:	xft:Liberation Mono:pixelsize=15:antialias=true:hinting=true
 URxvt.scrollstyle:	rxvt
@@ -18,3 +18,5 @@ xrenoise.use_xcursors:	1
 xrenoise.display:	:0
 xrenoise.display_resource:	0x00,0x05,0xAB,0xA4,0xBA,0x85,0xE1,0x5F
 xrenoise.executable_path:	/usr/bin/renoise3
+
+dzen2.font: xft:Liberation Mono:bold:pixelsize=15:antialias=true:hinting=true
