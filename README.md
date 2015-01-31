@@ -1,18 +1,18 @@
 linux-configs
 =============
 
-This is a set of my linux configs.
-If you want to try it, run the startup script (obviously)
+####Dotfile linking
+The dotfile linking script is based on [this script](http://blog.smalleycreative.com/tutorials/using-git-and-github-to-manage-your-dotfiles/)
 
-####Setup script
-Automatically does all the commands for me
 
-####Dropbox symlinks
-I don't want to cd to ~/Dropbox/Documents everytime, keep it simple with ~/Documents.
+### Window manager setups
 
-####Dotfile syncing
-Well, noone likes to have seperate zshrcs and awesome configs right?
+I have four tiling wm setups, but i currently use bspwm exclusively for both my desktop and laptop
 
-This is how you fast and easily manage it all like a champ!
+![bspwm 2015-01](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/bspwm%202015-01-30.png)
 
-It is based on this script: http://blog.smalleycreative.com/tutorials/using-git-and-github-to-manage-your-dotfiles/
+![dwm 2014-09](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/dwm%202014-09.jpg)
+
+![xmonad-pantheon](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/xmonad%202013-12.png)
+
+I don't have any screenshots of my old awesome setup sadly :(
