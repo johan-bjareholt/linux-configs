@@ -52,7 +52,7 @@ while read -r line ; do
 								;;
 							U*) # focused urgent desktop
 								SHOW=true
-								FG=''
+								FG='#FF0000'
 								PRE="["
 								POST="!]"
 								;;
@@ -70,7 +70,7 @@ while read -r line ; do
 								;;
 							u*) # urgent desktop
 								SHOW=true
-								FG=$color_urgent_fg
+								FG='#FF0000'
 								PRE=""
 								POST="!"
 								;;

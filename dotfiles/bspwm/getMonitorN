@@ -1,0 +1,12 @@
+#!/bin/sh
+MONITOR=$(bspc query -M -m)
+
+if [ $MONITOR = "DVI-D-0" ]; then
+	MONITOR_NUM=2
+elif [ $MONITOR = "HDMI-1" ]; then
+	MONITOR_NUM=3
+else
+	MONITOR_NUM=1
+fi
+
+echo $MONITOR_NUM

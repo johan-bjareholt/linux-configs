@@ -12,6 +12,11 @@ $(
 	feh --no-xinerama --bg-fill ~/Downloads/whiterun\ triple\ monitor.png
 ) &
 
+# Set mouse cursor
+xsetroot -cursor_name left_ptr &
+
+# Panel
+$HOME/.bspwm/panel &
 # Tray icons
 trayer \
 	--edge top \
@@ -26,7 +31,6 @@ trayer \
 
 # Autostart applications
 dropboxd &
-#~/.bspwm/panel & # panel
 
 
 
