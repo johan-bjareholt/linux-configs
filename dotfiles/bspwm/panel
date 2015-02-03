@@ -9,7 +9,13 @@ FONT='Liberation Mono'
 OPACITY=60
 FG='#FFFFFF'
 
-for FIFO in $PANEL_FIFO $PANEL_FIFO_LEFT $PANEL_FIFO_CENTER $PANEL_FIFO_RIGHT
+if [ $HOSTNAME = "johan-desktop" ]; then
+	FIFOS="$PANEL_FIFO $PANEL_FIFO_LEFT $PANEL_FIFO_CENTER $PANEL_FIFO_RIGHT"
+else
+	FIFOS="$PANEL_FIFO"
+fi
+
+for FIFO in $FIFOS
   do
 	[ -e "$FIFO" ] && rm "$FIFO"
 	mkfifo $FIFO
@@ -24,7 +30,7 @@ R_X=$((1280+1920+100))
 R_W=$((1280-200))
 
 LAPTOP_X=100
-LAPTOP_W=$((1379-200))
+LAPTOP_W=$((1366-200))
 
 bspc config top_padding $PANEL_HEIGHT
 bspc control --subscribe > "$PANEL_FIFO" &
@@ -41,5 +47,7 @@ if [ $HOSTNAME = "johan-desktop" ]; then
 			-ta l -o $OPACITY -fn "$FONT" -fg $FG \
 			-x $R_X -y 0 -w $R_W -h $H &
 else
-	cat "$PANEL_FIFO" | ~/.bspwm/paneltext $C_W | dzen2
+	cat "$PANEL_FIFO" | ~/.bspwm/paneltext $LAPTOP_W 0 | dzen2 \
+			-ta l -o $OPACITY -fn "$FONT" -fg $FG \
+			-x $LAPTOP_X -w $LAPTOP_W -y 0 -h $H &
 fi

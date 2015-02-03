@@ -39,17 +39,6 @@ super + {x,f}
 #	Window Management
 #
 
-# Switch focus back and forth
-super + {q,e}
-	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
-	bspc control --record-history on
-
-# Move window back and forth
-super + shift + {comma,period}
-	bspc desktop -C {backward,forward}
-
-
 # Switch focus vim style
 # Move windows vim style
 super + {_,shift + }{h,j,k,l}
@@ -59,6 +48,10 @@ super + {_,shift + }{h,j,k,l}
 # Move windows WASD style
 super + {_,shift + }{w,a,s,d}
 	bspc window -{f,s} {up,left,down,right}
+
+# Set insertion mode WASD style
+alt + {w,a,s,d}
+	bspc window --presel {up,left,down,right}
 
 # Move window vim style
 super + shift + {h,j,k,l}
@@ -75,18 +68,20 @@ super + button{1-3}
 
 
 
-
 #
 #	Workspace Management
 #
 
 # Switch to workspace
-# Move window to workspace
 super + {1-9}
-	~/.bspwm/switchWorkspace {1-9}
+	MONITORNUM=$(~/.bspwm/getMonitorN) ; \
+	bspc desktop -f $MONITORNUM"{1-9}"
+	#~/.bspwm/switchWorkspace {1-9}
 # Move window to workspace
 super + shift + {1-9}
-	~/.bspwm/moveWindow {1-9}
+	MONITORNUM=$(~/.bspwm/getMonitorN) ; \
+	bspc window -d $MONITORNUM"{1-9}"
+	#~/.bspwm/moveWindow {1-9}
 
 #
 # Application shortcuts
@@ -105,14 +100,17 @@ super + r
 #	Sound
 #
 
-XF86AudioLowerVolume
-	~/Scripts/volume.sh decrease 3
+XF86AudioMute
+super + F8
+	~/Scripts/volume.sh toggle
 
 XF86AudioRaiseVolume
+super + F10
 	~/Scripts/volume.sh increase 3
 
-XF86AudioMute
-	~/Scripts/volume.sh toggle
+XF86AudioLowerVolume
+super + F9
+	~/Scripts/volume.sh decrease 3
 
 Print
 	cd ~/Pictures/Screenshots ; scrot

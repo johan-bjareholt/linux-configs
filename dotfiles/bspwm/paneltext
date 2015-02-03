@@ -5,7 +5,11 @@
 font_family='Terminus'
 font_size=11
 width=$1
-workspaceN=$2
+if [ -z $2 ]; then
+	workspaceN=1
+else
+	workspaceN=0
+fi
 
 PANEL_FIFO_LEFT=/tmp/minipanelfifo_left
 PANEL_FIFO_RIGHT=/tmp/minipanelfifo_right
@@ -27,7 +31,7 @@ while read -r line ; do
 			# bspwm internal state
 			IFS=$FIELDIFS
 			set -- ${line#?}
-			WORKSPACE=""
+			WS=""
 			WS1=""
 			WS2=""
 			WS3=""
@@ -79,9 +83,7 @@ while read -r line ; do
 							PRE="^fg($FG)^ca(1, bspc desktop -f $name)"$PRE
 							POST=$POST"^ca()^fg()"
 							new="$workspace$PRE${name:1:1}$POST "
-							WORKSPACE="asd"
-							if [ ! -z "$workspaceN" ]; then
-								WORKSPACE="basd"
+							if [ -z "$workspaceN" ]; then
 								case ${name:0:1} in
 									1) 
 										WS1=$WS1$new
@@ -125,8 +127,7 @@ while read -r line ; do
 	# Left
 	
 	# Workspace
-	if [ ! -z "$workspaceN" ]; then
-		WORKSPACE="casd"
+	if [ -z "$workspaceN" ]; then
 		case ${workspaceN:0:1} in
 			1*)
 				WORKSPACE=" $WS1"
