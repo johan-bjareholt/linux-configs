@@ -7,36 +7,40 @@ $(
 		xrandr --output DVI-I-0 --pos 0x0
 		xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
 		xrandr --output HDMI-1 --right-of DVI-D-0
-	# Set wallpaper
-		feh --no-xinerama --bg-fill ~/Downloads/whiterun\ triple\ monitor.png
+		# Set wallpaper
+		feh --bg-scale ~/Dropbox/Photos/Wallpapers/thin\ lizzy.jpg
+		sleep 1 # Needed.
+				# If removed, panel will launch before xrandr is done and therefore placed wrong
 	else
-		feh --bg-fill ~/Dropbox/Photos/Wallpapers/mat\ zo\ -\ damage\ control.jpg
+		feh --bg-scale ~/Dropbox/Photos/Wallpapers/thin\ lizzy.jpg
 	fi
+	# Panel
+	$HOME/.bspwm/bar
+	# Icon tray
+	trayer \
+		--edge top \
+		--align right \
+		--alpha 255 \
+		--transparent true \
+		--widthtype pixel \
+		--heighttype pixel \
+		--width 70 \
+		--height 15 \
+		--margin 8 \
+		--tint 0x000000 &
+	bspc rule -a trayer sticky locked
 ) &
+
 
 # Set mouse cursor
 xsetroot -cursor_name left_ptr &
 
-# Panel
-$HOME/.bspwm/panel &
-# Tray icons
-trayer \
-	--edge top \
-	--align right \
-	--transparent true \
-	--widthtype pixel \
-	--heighttype pixel \
-	--width 68 \
-	--height 20 \
-	--margin $((100+20)) \
-	--tint 0x000000 &
-
 # Autostart applications
-dropboxd &
+start-pulseaudio-x11 &
+dropbox &
+wmname LG3D &
 
-
-
-
+# Start DE components
 compton &
-sxhkd -c ~/.bspwm/sxhkdrc &
-exec bspwm -c ~/.bspwm/bspwmrc
+sxhkd -c $HOME/.bspwm/sxhkdrc &
+exec bspwm -c $HOME/.bspwm/bspwmrc

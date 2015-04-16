@@ -38,6 +38,8 @@ dropbox () {
     ln -s ~/Dropbox/Photos/ ~/Pictures/Dropbox
     echo "Linking documents folder"
     ln -s ~/Dropbox/Dokument/ ~/Documents
+	echo "Linking notes folder"
+	ln -s ~/Dropbox/Dokument/Notes ~/Notes
     echo "Linking bash scripts"
     ln -s ~/Dropbox/Programming/Linux/linux-configs/scripts ~/Scripts
     echo "Done with dropbox symlinks!"

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+STATUS=""
+
 # Function to get mixer toggle status
 function status(){
 	STATUS=$(amixer get Master | tr -d '[]' | grep "Playback.*%" | grep -oE '[^ ]+$' | head -n 1)
@@ -8,7 +10,8 @@ function status(){
 
 # Function to toggle volume
 function toggle(){
-	if [ status = "on" ]
+	status()
+	if [ STATUS = "on" ]
 	  then
 	    amixer -c 0 set Master mute
 		echo muted

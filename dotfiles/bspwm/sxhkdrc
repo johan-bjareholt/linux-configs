@@ -100,21 +100,54 @@ super + r
 #	Sound
 #
 
-XF86AudioMute
-super + F8
+# Mute
+{XF86AudioMute,super + F8}
 	~/Scripts/volume.sh toggle
 
-XF86AudioRaiseVolume
-super + F10
-	~/Scripts/volume.sh increase 3
+# Raise volume
+{XF86AudioRaiseVolume,super + F10}
+	amixer -D pulse sset Master 2%+; echo "V" > /tmp/panelfifo
 
-XF86AudioLowerVolume
-super + F9
-	~/Scripts/volume.sh decrease 3
+# Lower volume
+{XF86AudioLowerVolume,super + F9}
+	amixer -D pulse sset Master 2%-; echo "V" > /tmp/panelfifo
 
 Print
 	cd ~/Pictures/Screenshots ; scrot
 
+#
+#	Backlight
+#
+
+super + F6
+	xbacklight -dec 5
+
+super + F7
+	xbacklight -inc 5
+
+#
+# Small Laptop Shortcuts
+#
+
+# End
+alt + Right
+	xvkbd -xsendevent -text '\[End]'
+
+# Home
+alt + Left
+	xvkbd -xsendevent -text '\[Home]'
+
+# Page up
+alt + Up
+	xvkbd -xsendevent -text '\[Page_Up]'
+
+# Page down
+alt + Down
+	xvkbd -xsendevent -text '\[Page_Down]'
+
+# Delete
+alt + Backspace
+	xvkbd -xsendevent -text '\[Delete]'
 
 #
 #	Deep space hotkeys
