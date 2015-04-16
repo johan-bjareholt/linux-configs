@@ -130,7 +130,7 @@ while read -r line ; do
 	if [ "$workspaceN" = 0 ]; then
 		BATTERY=$(acpi | awk '{print $4}')
 		BATTERY=${BATTERY:0:3}
-		BATTERY='[Bat: '$BATTERY']'
+		BATTERY='Bat: '$BATTERY
 	fi
 	# Memory free
 	MEMFREE=$( free | grep Mem | awk '{print $3/$2 * 100.0}')
@@ -160,7 +160,7 @@ while read -r line ; do
 	elif [ $workspaceN = 3 ]; then
 		RIGHT="$TRAY"
 	else # For single monitor setups and laptops
-		RIGHT=$VOLUME$BATTERY$TRAY
+		RIGHT=$VOLUME" | "$BATTERY" | "$TRAY" "
 	fi
 	# Move
 	RIGHT="%{r}"$RIGHT" "
