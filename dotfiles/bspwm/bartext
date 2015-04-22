@@ -1,19 +1,14 @@
 #!/bin/sh
-#
-# Example panel for dzen2
 
-width=$1
-if [ -z $2 ]; then
+if [ -z $1 ]; then
 	workspaceN=0
 else
-	workspaceN=$2
-	SCREEN="%{S"$(($2-1))"}"
+	workspaceN=$1
+	SCREEN="%{S"$(($1-1))"}"
 fi
 
 PANEL_FIFO_LEFT=/tmp/minipanelfifo_left
 PANEL_FIFO_RIGHT=/tmp/minipanelfifo_right
-
-$HOME/.bspwm/panel_colors
 
 NORMIFS=$IFS
 FIELDIFS=':'
@@ -22,7 +17,7 @@ while read -r line ; do
 	case $line in
 		V*) # Empty for updating volume level
 			;;
-		T*) # Empty for updating time every minute
+		T*) # Empty for updating time
 			;;
 		W*)
 			# bspwm internal state
@@ -37,53 +32,45 @@ while read -r line ; do
 						name=${item#?}
 						case $item in
 							O*) # focused occupied desktop
-								SHOW=true
 								FG='#00DDFF'
 								PRE="["
 								POST="]"
 								;;
 							F*) # focused free desktop
-								SHOW=true
 								FG='#00DDFF'
 								PRE="["
 								POST="]"
 								;;
 							U*) # focused urgent desktop
-								SHOW=true
 								FG='#FF0000'
 								PRE="["
 								POST="!]"
 								;;
 							o*) # occupied desktop
-								SHOW=true
 								FG='#2288FF'
 								PRE=""
 								POST=""
 								;;
 							f*) # free desktop
-								SHOW=true
 								FG="#FFFFFF"
 								PRE=""
 								POST=""
 								;;
 							u*) # urgent desktop
-								SHOW=true
 								FG='#FF0000'
 								PRE=""
 								POST="!"
 								;;
 						esac
-						if [ $SHOW = true ]; then
-							PRE="%{F"$FG"}"$PRE
-							POST=$POST"%{F-}"
-							new="$PRE${name:1:1}$POST "
-							if [ "$workspaceN" != 0 ]; then
-								if [ "$workspaceN" = "${name:0:1}" ]; then
-									WORKSPACE=$WORKSPACE$new
-								fi
-							else
-								WORKSPACE=$WORKSPACE$new
+						PRE="%{F"$FG"}"$PRE
+						POST=$POST"%{F-}"
+						WSD="$PRE${name:1:1}$POST "
+						if [ "$workspaceN" != 0 ]; then
+							if [ "$workspaceN" = "${name:0:1}" ]; then
+								WORKSPACE=$WORKSPACE$WSD
 							fi
+						else
+							WORKSPACE=$WORKSPACE$WSD
 						fi
 						;;
 					L*)
@@ -127,7 +114,7 @@ while read -r line ; do
 	# System load
 	SYSLOAD=$( uptime | awk '{ printf "Load %.2f",$8 }' )
 	# Battery
-	if [ "$workspaceN" = 0 ]; then
+	if [ "$HOSTNAME" -eq "johan-laptop" ]; then
 		BATTERY=$(acpi | awk '{print $4}')
 		BATTERY=${BATTERY:0:3}
 		BATTERY='Bat: '$BATTERY
@@ -137,7 +124,7 @@ while read -r line ; do
 	MEMFREE=$( cut -d '.' -f 1 <<< $MEMFREE )
 	MEMFREE="Ram: "${MEMFREE:0:2}
 	# Swap usage
-	SWAPFREE="Swap: "$(cat /proc/swaps | grep partition | awk '{printf "%i",($4+1)/$3}')
+	SWAPFREE="Swap: "$(cat /proc/swaps | grep partition | awk '{printf "%i",(($4+1)/$3)}')
 
 	#
 	#	Alignment and concatination

@@ -13,9 +13,9 @@ $(
 				# If removed, panel will launch before xrandr is done and therefore placed wrong
 	else
 		feh --bg-scale ~/Dropbox/Photos/Wallpapers/thin\ lizzy.jpg
-	fi
+	fi &
 	# Panel
-	$HOME/.bspwm/bar
+	$HOME/.bspwm/bar &
 	# Icon tray
 	trayer \
 		--edge top \

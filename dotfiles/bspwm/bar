@@ -5,8 +5,9 @@ PANEL_FIFO_CENTER=/tmp/panelfifo_center
 PANEL_FIFO_LEFT=/tmp/minipanelfifo_left
 PANEL_FIFO_RIGHT=/tmp/minipanelfifo_right
 
-OPACITY=60
-FG='#FFFFFF'
+FG='#FFFFFFFF'
+BG='#00FFFFFF'
+FONT="-*-liberation mono-medium-r-*-*-12-*-*-*-*-*-*-*"
 
 if [ $HOSTNAME = "johan-desktop" ]; then
 	FIFOS="$PANEL_FIFO $PANEL_FIFO_LEFT $PANEL_FIFO_CENTER $PANEL_FIFO_RIGHT"
@@ -20,29 +21,17 @@ for FIFO in $FIFOS
 	mkfifo $FIFO
 done
 
-H=20
-L_X=0
-L_W=1280
-C_X=1280
-C_W=1920
-R_X=$((1280+1920))
-R_W=1280
-
-LAPTOP_X=100
-LAPTOP_W=$((1366-200))
-
 bspc config top_padding $PANEL_HEIGHT
 bspc control --subscribe > "$PANEL_FIFO" &
 
-ARGS="-p -B #00FFFFFF -F #FFFFFFFF"
 
 if [ $HOSTNAME = "johan-desktop" ]; then
 	cat "$PANEL_FIFO"   | tee -a $PANEL_FIFO_CENTER $PANEL_FIFO_LEFT $PANEL_FIFO_RIGHT &
-	cat "$PANEL_FIFO_CENTER" | ~/.bspwm/bartext $C_W 2 | lemonbar $ARGS &
-	cat "$PANEL_FIFO_LEFT" | ~/.bspwm/bartext $L_W 1 | lemonbar $ARGS &
-	cat "$PANEL_FIFO_RIGHT" | ~/.bspwm/bartext $R_W 3 | lemonbar $ARGS &
+	cat "$PANEL_FIFO_CENTER" | ~/.bspwm/bartext 2 | lemonbar -p -B $BG -F $FG -f "$FONT" &
+	cat "$PANEL_FIFO_LEFT" | ~/.bspwm/bartext 1 | lemonbar -p -B $BG -F $FG -f "$FONT" &
+	cat "$PANEL_FIFO_RIGHT" | ~/.bspwm/bartext 3 | lemonbar -p -B $BG -F $FG -f "$FONT" &
 else
-	cat "$PANEL_FIFO" | ~/.bspwm/bartext $LAPTOP_W 0 | lemonbar $ARGS &
+	cat "$PANEL_FIFO" | ~/.bspwm/bartext 0 | lemonbar -p -B $BG -F $FG -f "$FONT" &
 fi
 $(
 while true
