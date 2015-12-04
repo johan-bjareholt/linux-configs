@@ -1,3 +1,7 @@
+URxvt.keysym.Home: \033[1~
+URxvt.keysym.End: \033[4~
+URxvt.keysym.KP_Home: \033[1~
+URxvt.keysym.KP_End:  \033[4~
 URxvt.clipboard.autocopy:	true
 URxvt.keysum.C-c:	perl:clipboard:copy
 URxvt.keysum.C-v:	perl:clipboard:paste

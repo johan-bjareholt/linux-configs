@@ -1,0 +1,2 @@
+swc-launch $HOME/Programming/Linux/zentwm/zentwm &
+sleep 1; setxkbmap se

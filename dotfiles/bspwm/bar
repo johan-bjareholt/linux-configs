@@ -2,11 +2,11 @@
 
 PANEL_FIFO=/tmp/panelfifo
 PANEL_FIFO_CENTER=/tmp/panelfifo_center
-PANEL_FIFO_LEFT=/tmp/minipanelfifo_left
-PANEL_FIFO_RIGHT=/tmp/minipanelfifo_right
+PANEL_FIFO_LEFT=/tmp/panelfifo_left
+PANEL_FIFO_RIGHT=/tmp/panelfifo_right
 
 FG='#FFFFFFFF'
-BG='#00FFFFFF'
+BG='#11000000'
 FONT="-*-liberation mono-medium-r-*-*-12-*-*-*-*-*-*-*"
 
 if [ $HOSTNAME = "johan-desktop" ]; then

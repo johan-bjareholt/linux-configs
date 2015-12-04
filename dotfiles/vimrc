@@ -1,29 +1,19 @@
 set number
 syntax on
 
+" Space as mapleader
+"let mapleader = "\<Space>"
+
 " Automatically adds curlybraces
 filetype indent on
 
 " Sets tab to tab 
 set noet ci pi sts=0 sw=4 ts=4
 
-" Arrow keys removal
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
 " Encoding 
-let g:Powerline_symbols = 'unicode'
 set laststatus=2
 set encoding=utf-8
 set t_Co=256
-
-" Powerline
-"set fillchars+=stl:\ ,stlnc:\
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
 
 " Scrollwheel
 set mouse=a

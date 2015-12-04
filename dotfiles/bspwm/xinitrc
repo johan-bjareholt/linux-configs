@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Setup Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
 # Setup monitors
 $(
 	if [ "$HOSTNAME" = "johan-desktop" ]
@@ -8,12 +11,11 @@ $(
 		xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
 		xrandr --output HDMI-1 --right-of DVI-D-0
 		# Set wallpaper
-		feh --bg-scale ~/Dropbox/Photos/Wallpapers/thin\ lizzy.jpg
-		sleep 1 # Needed.
-				# If removed, panel will launch before xrandr is done and therefore placed wrong
+		sleep 1 # If removed, panel will launch before xrandr is done and therefore placed wrong
+		feh --bg-tile ~/Dropbox/Photos/Wallpapers/porter\ robinson\ xinerama.png
 	else
-		feh --bg-scale ~/Dropbox/Photos/Wallpapers/thin\ lizzy.jpg
-	fi &
+		feh --bg-scale ~/Dropbox/Photos/Wallpapers/porter\ robinson.png
+	fi
 	# Panel
 	$HOME/.bspwm/bar &
 	# Icon tray

@@ -76,12 +76,10 @@ super + button{1-3}
 super + {1-9}
 	MONITORNUM=$(~/.bspwm/getMonitorN) ; \
 	bspc desktop -f $MONITORNUM"{1-9}"
-	#~/.bspwm/switchWorkspace {1-9}
 # Move window to workspace
 super + shift + {1-9}
 	MONITORNUM=$(~/.bspwm/getMonitorN) ; \
 	bspc window -d $MONITORNUM"{1-9}"
-	#~/.bspwm/moveWindow {1-9}
 
 #
 # Application shortcuts

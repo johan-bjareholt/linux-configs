@@ -9,6 +9,8 @@ promptinit
 
 ## Min del av scriptet!
 
+export EDITOR="vim"
+
 ## Path variables
 # Android paths
 export ANDROID_HOME=/opt/android-sdk/
@@ -33,12 +35,16 @@ export PATH=$PATH:/opt/google-appengine-python/
 # Ruby paths
 export PATH=$PATH:~/.gem/ruby/2.2.0/bin
 export PATH=$PATH:~/.gem/ruby/2.1.0/bin
+# Path to music
+export pathtomusic=/home/johan/Music/
+export mpd_music_dir=/home/johan/Music/
 
-# Mina aliases
+## Mina aliases
+# kommandon
 alias findproc="ps aux | grep"
+alias linec="find . -type f | xargs wc -l"
 alias steam-wine="wine ~/.wine/drive_c/Program\ Files/Steam/Steam.exe"
 alias wine='PULSE_LATENCY_MSEC=60 wine'
-
 # ls aliases
 alias e='vim'
 alias ls='ls --color=auto'
@@ -46,13 +52,14 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias alsaeq='alsamixer -D equal'
-
+# NYAN
+alias nyan='telnet nyancat.dakko.us'
 # UE4 oauth token
 export OAUTH_TOKEN=3d95f10248c662686c98c9c5e89cadab4d6402aa
 
-# Path to music
-export pathtomusic=/home/johan/Music/
-export mpd_music_dir=/home/johan/Music/
+## Home&End fix
+bindkey  "^[[1~"   beginning-of-line
+bindkey  "^[[4~"   end-of-line
 
 ## Make speedup
 NC=`cat /proc/cpuinfo | grep processor | wc -l`
@@ -63,25 +70,16 @@ alias make="make -j$NC"
 # Bspwm fix
 export XDG_CONFIG_HOME="/home/johan/.config"
 export BSPWM_SOCKET="/tmp/bspwm-socket"
-path=('/home/johan/.config/bspwm/panel/' $path)
-export path
 
-# Plex home theater git fix
-export XBMC_HOME=/usr/share/XBMC
-
-
-#if [ "$(which powerline)" != "powerline not found" ]
-#  then
-#    . /home/johan/.zsh-powerline
-#  else
-    ## Fallback PS1
-    autoload -U colors && colors
-    PROMPT="%{$fg[green]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg_no_bold[yellow]%}%1~ %{$fg[red]%}$%{$reset_color%} "
-    RPROMPT="[%{$fg_no_bold[yellow]%}%!%{$reset_color%}]"
-#fi
+# ssh agent service
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 
 
+## Prompt
+autoload -U colors && colors
+PROMPT="%{$fg[green]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg_no_bold[yellow]%}%1~ %{$fg[red]%}$%{$reset_color%} "
+RPROMPT="[%{$fg_no_bold[yellow]%}%!%{$reset_color%}]"
 
 
 
