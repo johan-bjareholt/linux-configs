@@ -18,6 +18,8 @@ $(
 	fi
 	# Panel
 	$HOME/.bspwm/bar &
+	# Sleep so trayer gets ontop of bar
+	sleep 0.5
 	# Icon tray
 	trayer \
 		--edge top \
@@ -39,7 +41,7 @@ xsetroot -cursor_name left_ptr &
 
 # Autostart applications
 start-pulseaudio-x11 &
-dropbox &
+ionice -c 3 dropbox &
 wmname LG3D &
 
 # Start DE components
