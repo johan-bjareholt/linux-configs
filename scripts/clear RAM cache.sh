@@ -1,2 +1,10 @@
 #!/bin/bash
-echo 3 > /proc/sys/vm/drop_caches
+function clear() {
+	sudo echo 3 > sudo /proc/sys/vm/drop_caches
+	sleep 5
+}
+
+while :
+do
+	clear
+done

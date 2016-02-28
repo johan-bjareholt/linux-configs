@@ -9,6 +9,10 @@ The dotfile linking script is based on [this script](http://blog.smalleycreative
 
 I have four tiling wm setups, but i currently use bspwm exclusively for both my desktop and laptop
 
+2016-02
+![2015-04 bspwm laptop grey matzo](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/2015-09%20bspwm%20laptop%20grey%20matzo.png)
+![2015-04 bspwm desktop grey matzo](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/2015-09%20bspwm%20laptop%20grey%20matzo.png)
+
 2015-09
 ![2015-04 bspwm laptop porterrobinson](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/2015-09%20bspwm%20laptop%20porterrobinson.jpg)
 ![2015-04 bspwm desktop porterrobinson](https://raw.githubusercontent.com/johan-bjareholt/linux-configs/master/screenshots/2015-09%20bspwm%20desktop%20porterrobinson.jpg)

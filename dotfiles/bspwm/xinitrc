@@ -10,29 +10,10 @@ $(
 		xrandr --output DVI-I-0 --pos 0x0
 		xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
 		xrandr --output HDMI-1 --right-of DVI-D-0
-		# Set wallpaper
-		sleep 1 # If removed, panel will launch before xrandr is done and therefore placed wrong
-		feh --bg-tile ~/Dropbox/Photos/Wallpapers/porter\ robinson\ xinerama.png
-	else
-		feh --bg-scale ~/Dropbox/Photos/Wallpapers/porter\ robinson.png
 	fi
+	feh --bg-fill ~/Pictures/Wallpapers/mat\ zo\ -\ damage\ control.jpg
 	# Panel
 	$HOME/.bspwm/bar &
-	# Sleep so trayer gets ontop of bar
-	sleep 0.5
-	# Icon tray
-	trayer \
-		--edge top \
-		--align right \
-		--alpha 255 \
-		--transparent true \
-		--widthtype pixel \
-		--heighttype pixel \
-		--width 70 \
-		--height 15 \
-		--margin 8 \
-		--tint 0x000000 &
-	bspc rule -a trayer sticky locked
 ) &
 
 
@@ -41,10 +22,9 @@ xsetroot -cursor_name left_ptr &
 
 # Autostart applications
 start-pulseaudio-x11 &
-ionice -c 3 dropbox &
 wmname LG3D &
 
 # Start DE components
-compton &
+compton -D 0 &
 sxhkd -c $HOME/.bspwm/sxhkdrc &
 exec bspwm -c $HOME/.bspwm/bspwmrc

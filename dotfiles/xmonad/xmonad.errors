@@ -1,4 +1,0 @@
-
-xmonad.hs:19:8:
-    Could not find module `XMonad.Hooks.DynamicLog'
-    Use -v to see a list of the files searched for.
