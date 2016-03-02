@@ -9,6 +9,8 @@ fi
 NORMIFS=$IFS
 FIELDIFS=':'
 
+declare -a WORKSPACESCREEN
+
 while read -r line ; do
 	OUTPUT=""
 	for screenN in $(seq 1 $screenC);
@@ -77,6 +79,7 @@ while read -r line ; do
 							else
 								WORKSPACE=$WORKSPACE$WSD
 							fi
+							WORKSPACESCREEN[$screenN]=$WORKSPACE
 							;;
 						L*)
 							# LAYOUT
@@ -101,6 +104,7 @@ while read -r line ; do
 		#
 	
 		# Left
+		WORKSPACE=${WORKSPACESCREEN[$screenN]}
 		
 		# Center
 		TIME=$(date +'%H:%M')
