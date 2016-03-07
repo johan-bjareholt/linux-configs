@@ -12,7 +12,7 @@ dotfiles () {
     dir=$cwd/dotfiles
 
     # list of files/folders to symlink in homedir
-    files="zshrc config/awesome config/awesome3.2 config/dwm oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon asoundrc ncmpcpp/config velox.conf bspwm xlock"
+    files="zshrc config/awesome config/awesome3.2 config/dwm oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon asoundrc ncmpcpp/config velox.conf bspwm xlock mozilla/stylish"
     
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
     cd $cwd/dotfiles
@@ -30,24 +30,18 @@ dotfiles () {
     cd $cwd
 }
 
-dropbox () {
-    echo "Starting symlinking of dropbox folders..."
-    echo "Linking programming folder"
-    ln -s ~/Dropbox/Programming/ ~/Programming
-    echo "Linking photos folder"
-    ln -s ~/Dropbox/Photos/ ~/Pictures/Dropbox
-    echo "Linking documents folder"
-    ln -s ~/Dropbox/Dokument/ ~/Documents
+symlinks () {
+    echo "Creating you symlinks..."
 	echo "Linking notes folder"
-	ln -s ~/Dropbox/Dokument/Notes ~/Notes
+	ln -s ~/Dokument/Notes ~/Notes
     echo "Linking bash scripts"
-    ln -s ~/Dropbox/Programming/Linux/linux-configs/scripts ~/Scripts
-    echo "Done with dropbox symlinks!"
+    ln -s ~/Programming/Linux/linux-configs/scripts ~/Scripts
+    echo "Done with creating symlinks!"
 }
 
 echo Welcome to my linux config setup script!
 
-for section in dotfiles dropbox; do
+for section in dotfiles symlinks; do
     echo "Would you like to setup $section? (y/n): "
     read prompt
     echo
