@@ -125,10 +125,6 @@ while read -r line ; do
 		MEMFREE=$( cut -d '.' -f 1 <<< $MEMFREE )
 		MEMFREE="Ram: "${MEMFREE:0:2}"%"
 	
-		# Sysload
-	
-	
-			
 		#
 		# Right
 		#
@@ -150,7 +146,7 @@ while read -r line ; do
 		#
 		
 		# Left
-		LEFT="${WORKSPACE}"
+		LEFT="$WORKSPACE"
 		LEFT="%{l} $LEFT"
 	
 		# Center

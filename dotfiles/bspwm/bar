@@ -8,7 +8,7 @@ PANEL_FIFO=/tmp/panelfifo
 mkfifo $PANEL_FIFO
 
 bspc config top_padding $PANEL_HEIGHT
-bspc control --subscribe > "$PANEL_FIFO" &
+bspc subscribe all > "$PANEL_FIFO" &
 
 
 screenC=1
@@ -25,4 +25,4 @@ while true
 	echo T > $PANEL_FIFO
 	sleep 60
 done
-) &
+)

@@ -21,7 +21,7 @@ super + Escape
 
 # Close window
 super + q 
-	bspc window -c
+	bspc node -c
 
 # Fullscreen?
 super + t
@@ -30,7 +30,7 @@ super + t
 # x floating
 # f fullscreen
 super + {x,f}
-	bspc window -t {floating,fullscreen}
+	bspc node -t {floating,fullscreen}
 
 
 
@@ -42,24 +42,24 @@ super + {x,f}
 # Switch focus vim style
 # Move windows vim style
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc node -{f,s} {west,south,north,east}
 
 # Switch focus WASD style
 # Move windows WASD style
 super + {_,shift + }{w,a,s,d}
-	bspc window -{f,s} {up,left,down,right}
+	bspc node -{f,s} {north,west,south,east}
 
 # Set insertion mode WASD style
 alt + {w,a,s,d}
-	bspc window --presel {up,left,down,right}
+	bspc node --presel {north,west,south,east}
 
 # Move window vim style
 super + shift + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+	bspc node -p {west,south,north,east}
 
 # Rezise windows in tile
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
+	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
 
 # Move window with mouse
 # Resize window with mouse
@@ -79,7 +79,7 @@ super + {1-9}
 # Move window to workspace
 super + shift + {1-9}
 	MONITORNUM=$(~/.bspwm/getMonitorN) ; \
-	bspc window -d $MONITORNUM"{1-9}"
+	bspc node -d $MONITORNUM"{1-9}"
 
 #
 # Application shortcuts
@@ -89,10 +89,10 @@ super + Return
 	urxvt
 
 super + space
-	dmenu_run
+	j4-dmenu-desktop
 
 super + r
-	dmenu_run
+	j4-dmenu-desktop
 
 #
 #	Sound
@@ -159,23 +159,23 @@ super + b
 
 # ?
 #super + {grave,Tab}
-#	bspc {window,desktop} -f last
+#	bspc {node,desktop} -f last
 
 # ?
 #super + apostrophe
-#	bspc window -s last
+#	bspc node -s last
 
 # ?
 #super + y
-#	bspc window -w last.manual
+#	bspc node -w last.manual
 
 # ?
 super + m
-	bspc window -s biggest
+	bspc node -s biggest
 
 # ?
 #super + {_,shift + }c
-#	bspc window -f {next,prev}
+#	bspc node -f {next,prev}
 
 # ?
 #super + {comma,period}
@@ -187,14 +187,14 @@ super + bracket{left,right}
 
 # ?
 super + ctrl + {_,shift + }space
-	bspc {window -p cancel,desktop -c}
+	bspc {node -p cancel,desktop -c}
 # ?
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,down -10,left +10}
+	bspc node -e {right -10,up +10,down -10,left +10}
 
 # ?
 super + ctrl + {1-9}
-	bspc window -r 0.{1-9}
+	bspc node -r 0.{1-9}
 # ?
 ~button1
 	bspc pointer -g focus
