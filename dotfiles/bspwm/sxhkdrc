@@ -1,4 +1,4 @@
-#
+
 # bspwm hotkeys
 #
 
@@ -29,8 +29,8 @@ super + t
 
 # x floating
 # f fullscreen
-super + {x,f}
-	bspc node -t {floating,fullscreen}
+super + {x,c,f}
+	bspc node -t {floating,tiled,fullscreen}
 
 
 
@@ -51,7 +51,7 @@ super + {_,shift + }{w,a,s,d}
 
 # Set insertion mode WASD style
 alt + {w,a,s,d}
-	bspc node --presel {north,west,south,east}
+	bspc node -p {north,west,south,east}
 
 # Move window vim style
 super + shift + {h,j,k,l}
@@ -89,10 +89,10 @@ super + Return
 	urxvt
 
 super + space
-	j4-dmenu-desktop
+	dmenu_run
 
 super + r
-	j4-dmenu-desktop
+	dmenu_run
 
 #
 #	Sound

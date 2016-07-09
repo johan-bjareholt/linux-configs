@@ -1,10 +1,14 @@
 #!/bin/sh
 MONITOR=$(bspc query -M -m)
 
-if [ $MONITOR = "DVI-D-0" ]; then
-	MONITOR_NUM=2
-elif [ $MONITOR = "HDMI-1" ]; then
-	MONITOR_NUM=3
+if [ $HOSTNAME = "johan-desktop" ]; then
+	if [ $MONITOR = "DVI-I-0" ]; then
+		MONITOR_NUM=3
+	elif [ $MONITOR = "HDMI-0" ]; then
+		MONITOR_NUM=1
+	else
+		MONITOR_NUM=2
+	fi
 else
 	MONITOR_NUM=1
 fi

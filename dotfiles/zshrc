@@ -9,6 +9,8 @@ promptinit
 
 ## Min del av scriptet!
 
+alias vi="nvim"
+alias vim="nvim"
 export EDITOR="vim"
 
 ## Path variables

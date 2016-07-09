@@ -3,7 +3,7 @@
 #
 mpd_host                    = "localhost"
 mpd_port                    = "6600"
-mpd_music_dir               = "/media/raid/Music/Music/"
+mpd_music_dir               = "/home/johan/Music/Music/"
 #allow_physical_files_deletion = "yes"
 #allow_physical_directories_deletion = "yes"
 
@@ -26,9 +26,9 @@ now_playing_suffix          = "$9"
 progressbar_look            = "◾◾◽"
 empty_tag_marker            = "[empty]"
 # Formats
-song_list_format            = "$3{%A }|{%a }$7{%b }$0{%t}| $4$R{%7l}$9"
-song_library_format         = "{$3%n $9}{$2%t$9}|{$7%f$9}"
-song_columns_list_format    = "(34)[green]{a} (34)[]{t|f} (32)[cyan]{b}"
+#song_list_format            = "$3{%A }|{%a }$7{%b }$0{%t}| $4$R{%7l}$9"
+#song_library_format         = "{$3%n $9}{$2%t$9}|{$7%f$9}"
+#song_columns_list_format    = "(34)[green]{a} (34)[]{t|f} (32)[cyan]{b}"
 # Interface modes
 playlist_display_mode       = "columns"
 playlist_editor_display_mode= "columns"

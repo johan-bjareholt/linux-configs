@@ -2,7 +2,7 @@
 
 #
 bspc config border_width	2
-bspc config window_gap		12
+#bspc config window_gap		12
 bspc config top_padding		20
 
 #
@@ -13,9 +13,9 @@ bspc config focus_by_distance   true
 
 # Setup workspaces for desktop and laptop
 if [ $HOSTNAME = "johan-desktop" ]; then
-	bspc monitor DVI-I-0 -d 11 12 13 14 15 
+	bspc monitor HDMI-0  -d 11 12 13 14 15
 	bspc monitor DVI-D-0 -d 21 22 23 24 25
-	bspc monitor HDMI-1  -d 31 32 33 34 35
+	bspc monitor DVI-I-0 -d 31 32 33 34 35 
 else
 	bspc monitor -d 11 12 13 14 15
 fi

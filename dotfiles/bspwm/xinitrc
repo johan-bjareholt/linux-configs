@@ -7,11 +7,11 @@
 $(
 	if [ "$HOSTNAME" = "johan-desktop" ]
 	  then
-		xrandr --output DVI-I-0 --pos 0x0
-		xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
-		xrandr --output HDMI-1 --right-of DVI-D-0
+		xrandr --output HDMI-0 --pos 0x0 --rotate left
+		xrandr --output DVI-D-0 --right-of HDMI-0 --primary --mode 1920x1080
+		xrandr --output DVI-I-0 --right-of DVI-D-0 --rotate left
 	fi
-	feh --bg-fill ~/Pictures/Wallpapers/mat\ zo\ -\ damage\ control.jpg
+	feh --bg-fill ~/Pictures/Wallpapers/arch-black-welcome-home.png
 	# Panel
 	$HOME/.bspwm/bar &
 ) &

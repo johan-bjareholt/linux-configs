@@ -7,8 +7,9 @@ syntax on
 " Automatically adds curlybraces
 filetype indent on
 
-" Sets tab to tab 
-set noet ci pi sts=0 sw=4 ts=4
+" Sets tab to space
+set expandtab
+set tabstop=4
 
 " Encoding 
 set laststatus=2
