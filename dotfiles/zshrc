@@ -1,17 +1,54 @@
+source ~/Programming/bin/oe-setup.sh > /dev/null
+export PATH=$PATH:~/Programming/bin
+export GST_DEBUG_DUMP_DOT_DIR=~
+alias xcam-scan="xcam-scan -n eth0"
+alias diff="colordiff -u"
+
+setxkbmap -option caps:super # Move to autostart somewhere
+
+# -R shows ansi colorcodes
+export LESS="-R"
+
+export G_DEBUG=fatal_warnings
+
+if [ "$HOSTNAME" = "lnxjohanbj" ]; then
+export GIT_PROXY_COMMAND="axis-git-proxy"
+export ALL_PROXY="socks://socks.se.axis.com:1081/?"
+export {http,https,ftp}_proxy='https://wwwproxy:3128'
+alias pip="pip --proxy ${https_proxy}"
+alias pip3="pip3 --proxy ${https_proxy}"
+fi
+
+alias         ".."="cd .."
+alias        "..."="cd ../../"
+alias       "...."="cd ../../../"
+alias      "....."="cd ../../../../"
+alias     "......"="cd ../../../../../"
+alias    "......."="cd ../../../../../../"
+alias   "........"="cd ../../../../../../../"
+alias  "........."="cd ../../../../../../../../"
+alias ".........."="cd ../../../../../../../../../"
 
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
 
 
+export AXIS_DEVELOPER=y
+export AXIS_TESTER=y
+export AXIS_TARGET_ADDR=y
+export AXIS_TARGET_IP=192.168.0.90
+export AXIS_RESUME=y
+
+alias pip="pip --proxy wwwproxy.se.axis.com:3128"
+alias pip3="pip3 --proxy wwwproxy.se.axis.com:3128"
 
 
 
 ## Min del av scriptet!
+export EDITOR="nvim"
 
-alias vi="nvim"
-alias vim="nvim"
-export EDITOR="vim"
+export GTK_THEME=Adwaita:dark
 
 ## Path variables
 # Android paths
@@ -44,11 +81,12 @@ export mpd_music_dir=/home/johan/Music/
 ## Mina aliases
 # kommandon
 alias findproc="ps aux | grep"
-alias linec="find . -type f | xargs wc -l"
+alias linec="find ./* -type f | xargs wc -l"
 alias steam-wine="wine ~/.wine/drive_c/Program\ Files/Steam/Steam.exe"
 alias wine='PULSE_LATENCY_MSEC=60 wine'
 # ls aliases
-alias e='vim'
+alias e='nvim'
+#alias vim='nvim'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
@@ -70,7 +108,7 @@ alias make="make -j$NC"
 ## Application fixes
 
 # Bspwm fix
-export XDG_CONFIG_HOME="/home/johan/.config"
+#export XDG_CONFIG_HOME="/home/johan/.config"
 export BSPWM_SOCKET="/tmp/bspwm-socket"
 
 # ssh agent service
@@ -92,11 +130,10 @@ setopt histignorealldups sharehistory
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
-
-
 
 
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -115,63 +152,3 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-
-
-
-#zle -N zle-line-init
-#zle -N zle-line-finish
-
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
-
-COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-export COMP_WORDBREAKS
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${COMP_WORDS[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
-fi
-###-end-npm-completion-###
