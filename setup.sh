@@ -12,7 +12,7 @@ dotfiles () {
     dir=$cwd/dotfiles
 
     # list of files/folders to symlink in homedir
-    files="zshrc config/awesome config/awesome3.2 config/dwm oh-my-zsh Xdefaults vimrc xmonad xmonad-pantheon asoundrc ncmpcpp/config velox.conf bspwm xlock mozilla/stylish"
+    files="zshrc config/awesome config/awesome3.2 config/dwm oh-my-zsh Xdefaults config/nvim xmonad xmonad-pantheon ncmpcpp/config velox.conf bspwm xlock mozilla/stylish"
     
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
     cd $cwd/dotfiles
@@ -33,7 +33,7 @@ dotfiles () {
 symlinks () {
     echo "Creating you symlinks..."
 	echo "Linking notes folder"
-	ln -s ~/Dokument/Notes ~/Notes
+	ln -s ~/Documents/Notes ~/Notes
     echo "Linking bash scripts"
     ln -s ~/Programming/Linux/linux-configs/scripts ~/Scripts
     echo "Done with creating symlinks!"
