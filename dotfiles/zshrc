@@ -3,15 +3,23 @@
 autoload -Uz promptinit
 promptinit
 
-
+alias maja="feh -F /home/johan/Pictures/maja.jpg"
 
 
 
 ## Min del av scriptet!
 
-alias vi="nvim"
-alias vim="nvim"
-export EDITOR="vim"
+if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\)')" ]]
+then
+	alias vim="nvim"
+	export EDITOR="nvim"
+
+    alias diff="colordiff -u"
+else
+	export EDITOR="vim"
+
+    alias diff="diff -u"
+fi
 
 ## Path variables
 # Android paths
@@ -27,14 +35,14 @@ export PATH=$PATH:/opt/java/jre/bin
 export PATH=$PATH:/opt/java/jdk/bin
 # Go home, hah!
 export GOPATH=~/.go
-# Wine
-export WINEARCH=win32
-#
-export PATH="$PATH:/home/johan/.gem/ruby/2.1.0/bin"
+# Rust Cargo
+export PATH=$PATH:~/.cargo/bin
+
 # App Engine
 export PATH=$PATH:/opt/google-appengine-go/
 export PATH=$PATH:/opt/google-appengine-python/
 # Ruby paths
+export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 export PATH=$PATH:~/.gem/ruby/2.2.0/bin
 export PATH=$PATH:~/.gem/ruby/2.1.0/bin
 # Path to music
@@ -44,10 +52,13 @@ export mpd_music_dir=/home/johan/Music/
 ## Mina aliases
 # kommandon
 alias findproc="ps aux | grep"
+function pyman(){ python -c "help($1)" }
 alias linec="find . -type f | xargs wc -l"
-alias steam-wine="wine ~/.wine/drive_c/Program\ Files/Steam/Steam.exe"
-alias wine='PULSE_LATENCY_MSEC=60 wine'
+alias steam-wine="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe"
+alias irc="ssh -p 1822 -t home.johan.bjareholt.com 'screen -x irc'"
+alias deluge-forward="ssh -p 2222 -f newton.bjareholt.com -L 2000:localhost:8112 -N"
 # ls aliases
+alias info="info --vi-keys"
 alias e='vim'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
@@ -65,7 +76,7 @@ bindkey  "^[[4~"   end-of-line
 
 ## Make speedup
 NC=`cat /proc/cpuinfo | grep processor | wc -l`
-alias make="make -j$NC"
+alias make="make --jobs=$NC"
 
 ## Application fixes
 
@@ -92,12 +103,10 @@ setopt histignorealldups sharehistory
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
-
-
-
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -117,61 +126,17 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
+# Set title
+preexec () {
+    print -Pn "\e]0;${USER}@${HOST}: ${PWD}\a"
+}
+precmd () {
+    print -Pn "\e]0;${USER}@${HOST}: ${PWD}\a"
+}
 
-
-#zle -N zle-line-init
-#zle -N zle-line-finish
-
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
-
-COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-export COMP_WORDBREAKS
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${COMP_WORDS[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
+if [ "$HOST" = "johan-desktop" ]; then
+source ~/Programming/activitywatch/aw-watcher-bash/aw-watcher-bash.sh
 fi
-###-end-npm-completion-###
+if [ "$HOST" = "johan-laptop2" ]; then
+source ~/Programming/activitywatch/aw-watcher-bash/aw-watcher-bash.sh
+fi
