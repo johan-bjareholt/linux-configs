@@ -13,7 +13,8 @@ export PATH=$PATH:~/Programming/bin
 source ~/Programming/bin/oe-setup.sh > /dev/null
 export GIT_PROXY_COMMAND="axis-git-proxy"
 export ALL_PROXY="socks://socks.se.axis.com:1081/?"
-export {http,https,ftp}_proxy='https://wwwproxy:3128'
+export {http,https,ftp}_proxy='https://wwwproxy.se.axis.com:3128'
+export {HTTP,HTTPS,FTP}_PROXY='https://wwwproxy.se.axis.com:3128'
 alias pip="pip --proxy ${https_proxy}"
 alias pip3="pip3 --proxy ${https_proxy}"
 alias xcam-scan="xcam-scan -n eth0"
@@ -42,17 +43,14 @@ export AXIS_RESUME=y
 
 
 ## Min del av scriptet!
-export EDITOR="nvim"
+alias e='vim'
+export EDITOR="vim"
 
-if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohan\)')" ]]
+if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohanbj\)')" ]]
 then
-	alias vim="nvim"
-	export EDITOR="nvim"
-
+    alias vim="nvim"
     alias diff="colordiff -u"
 else
-	export EDITOR="vim"
-
     alias diff="diff -u"
 fi
 export GTK_THEME=Adwaita:dark
@@ -95,7 +93,6 @@ alias irc="ssh -p 1822 -t home.johan.bjareholt.com 'screen -x irc'"
 alias deluge-forward="ssh -p 2222 -f newton.bjareholt.com -L 2000:localhost:8112 -N"
 # ls aliases
 alias info="info --vi-keys"
-alias e='nvim'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
