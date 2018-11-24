@@ -1,6 +1,7 @@
 set number " nuber lines
+set title " sets terminal title accordingly
 
-syntax enable
+syntax on
 
 filetype on " Detect filetype
 filetype plugin on " Enable loading filetype plugins
@@ -11,8 +12,8 @@ set ruler
 
 " Sets tab to space
 set expandtab " defaults to use spaces instead of tabs
-set tabstop=4 " size of a hard tabstop
-set shiftwidth=4 " size of an "indent"
+set tabstop=4 " amount of character a tab is
+set shiftwidth=4 " size of an "indent" in terms of spaces
 
 " Tabs instead of spaces in Makefiles
 autocmd FileType make set noexpandtab
@@ -25,6 +26,9 @@ set hlsearch
 
 " Highlight matches while writing match
 set incsearch
+
+" Live substitute preview
+set inccommand=split
 
 " jk is escape
 inoremap jk <esc>
@@ -46,6 +50,17 @@ map <ScrollWheelDown> <C-E>
 " Set scrolloff so at least 8 lines above/below cursor are showing
 set scrolloff=8
 
+" Disable hjkl
+"noremap h <NOP>
+"noremap j <NOP>
+"noremap k <NOP>
+"noremap l <NOP>
+
+" Remove trailing spaces
+augroup vimrc_remove_trailing_spaces
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
 highlight ErrorColor ctermbg=darkred ctermfg=white guibg=#592929
 augroup vimrc_error_highlights
   " 1: Highlight when line is longer than 80 chars
@@ -60,3 +75,17 @@ set modelines=0
 
 " Don't redraw while executing macros (improves performance)
 set lazyredraw
+
+let hostname = substitute(system('hostname'), '\n', '', '')
+if hostname == "johan-desktop" || hostname == "johan-laptop2"
+  " Pathogen
+  execute pathogen#infect()
+
+  " NERDTree binding
+  map <C-n> :NERDTreeToggle<CR>
+  nmap , :NERDTreeToggle<CR>
+
+  " theme
+  colorscheme molokai
+  colorscheme hybrid
+endif
