@@ -4,7 +4,19 @@
 pushd ./dotfiles
 
 # list of files/folders to symlink in homedir
-files="zshrc config/awesome config/awesome3.2 config/dwm Xdefaults config/nvim xmonad xmonad-pantheon ncmpcpp/config velox.conf bspwm xlock "
+files="
+    zshrc
+    config/awesome config/awesome3.2
+    config/dwm
+    config/nvim
+    config/sway
+    bspwm
+    ncmpcpp/config
+    velox.conf
+    xlock
+    xmonad xmonad-pantheon
+    Xdefaults
+"
 
 for file in $files; do
     echo "Creating symlink to $file in home directory."
