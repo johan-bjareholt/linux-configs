@@ -1,12 +1,8 @@
 export GST_DEBUG_DUMP_DOT_DIR=~
 alias diff="colordiff -u"
 
-setxkbmap -option caps:super # Move to autostart somewhere
-
 # -R shows ansi colorcodes
 export LESS="-R"
-
-export G_DEBUG=fatal_warnings
 
 if [ "$HOSTNAME" = "lnxjohanbj" ]; then
 export PATH=$PATH:~/Programming/bin
@@ -18,6 +14,11 @@ export {HTTP,HTTPS,FTP}_PROXY='https://wwwproxy.se.axis.com:3128'
 alias pip="pip --proxy ${https_proxy}"
 alias pip3="pip3 --proxy ${https_proxy}"
 alias xcam-scan="xcam-scan -n eth0"
+export AXIS_DEVELOPER=y
+export AXIS_TESTER=y
+export AXIS_TARGET_ADDR=y
+export AXIS_TARGET_IP=192.168.0.90
+export AXIS_RESUME=y
 fi
 
 alias         ".."="cd .."
@@ -34,26 +35,19 @@ alias ".........."="cd ../../../../../../../../../"
 autoload -Uz promptinit
 promptinit
 
-export AXIS_DEVELOPER=y
-export AXIS_TESTER=y
-export AXIS_TARGET_ADDR=y
-export AXIS_TARGET_IP=192.168.0.90
-export AXIS_RESUME=y
-
-
-
-## Min del av scriptet!
-alias e='vim'
-export EDITOR="vim"
-
-if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohanbj\)')" ]]
+if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohanbj\|x201\)')" ]]
 then
+    alias e='nvim'
+    export EDITOR="nvim"
     alias vim="nvim"
     alias diff="colordiff -u"
 else
     alias diff="diff -u"
 fi
+
 export GTK_THEME=Adwaita:dark
+export XKB_DEFAULT_LAYOUT=se
+export XKB_DEFAULT_OPTIONS=caps:super
 
 ## Path variables
 # Android paths
@@ -97,11 +91,9 @@ alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias alsaeq='alsamixer -D equal'
+
 # NYAN
 alias nyan='telnet nyancat.dakko.us'
-# UE4 oauth token
-export OAUTH_TOKEN=3d95f10248c662686c98c9c5e89cadab4d6402aa
 
 ## Home&End fix
 bindkey  "^[[1~"   beginning-of-line
@@ -114,7 +106,6 @@ alias make="make --jobs=$NC"
 ## Application fixes
 
 # Bspwm fix
-#export XDG_CONFIG_HOME="/home/johan/.config"
 export BSPWM_SOCKET="/tmp/bspwm-socket"
 
 # ssh agent service
