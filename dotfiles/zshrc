@@ -4,21 +4,36 @@ alias diff="colordiff -u"
 # -R shows ansi colorcodes
 export LESS="-R"
 
+function proxy_enable () {
+    export GIT_PROXY_COMMAND="axis-git-proxy"
+    export ALL_PROXY="socks://socks.se.axis.com:1081/?"
+    export {http,ftp}_proxy='http://wwwproxy.se.axis.com:3128'
+    export https_proxy='https://wwwproxy.se.axis.com:3128'
+    export {HTTP,FTP}_PROXY='http://wwwproxy.se.axis.com:3128'
+    export HTTPS_PROXY='https://wwwproxy.se.axis.com:3128'
+    alias pip="pip --proxy ${https_proxy}"
+    alias pip3="pip3 --proxy ${https_proxy}"
+}
+
+function proxy_disable () {
+    export GIT_PROXY_COMMAND=
+    export ALL_PROXY=
+    export {http,ftp,https}_proxy=
+    export {HTTP,FTP,HTTPS}_PROXY=
+    unalias pip
+    unalias pip3
+}
+
 if [ "$HOSTNAME" = "lnxjohanbj" ]; then
-export PATH=$PATH:~/Programming/bin
-source ~/Programming/bin/oe-setup.sh > /dev/null
-export GIT_PROXY_COMMAND="axis-git-proxy"
-export ALL_PROXY="socks://socks.se.axis.com:1081/?"
-export {http,https,ftp}_proxy='https://wwwproxy.se.axis.com:3128'
-export {HTTP,HTTPS,FTP}_PROXY='https://wwwproxy.se.axis.com:3128'
-alias pip="pip --proxy ${https_proxy}"
-alias pip3="pip3 --proxy ${https_proxy}"
-alias xcam-scan="xcam-scan -n eth0"
-export AXIS_DEVELOPER=y
-export AXIS_TESTER=y
-export AXIS_TARGET_ADDR=y
-export AXIS_TARGET_IP=192.168.0.90
-export AXIS_RESUME=y
+    export PATH=$PATH:~/Programming/bin
+    source ~/Programming/bin/oe-setup.sh > /dev/null
+    alias xcam-scan="xcam-scan -n eth0"
+    export AXIS_DEVELOPER=y
+    export AXIS_TESTER=y
+    export AXIS_TARGET_ADDR=y
+    export AXIS_TARGET_IP=192.168.0.90
+    export AXIS_RESUME=y
+    proxy_enable
 fi
 
 alias         ".."="cd .."
@@ -35,9 +50,18 @@ alias ".........."="cd ../../../../../../../../../"
 autoload -Uz promptinit
 promptinit
 
+export AXIS_DEVELOPER=y
+export AXIS_TESTER=y
+export AXIS_TARGET_ADDR=y
+export AXIS_TARGET_IP=192.168.0.90
+export AXIS_RESUME=y
+
+alias e='vim'
+export EDITOR="vim"
+
 if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohanbj\|x201\)')" ]]
 then
-    alias e='nvim'
+    alias e="ALL_PROXY= HTTP_PROXY= http_proxy= nvim"
     export EDITOR="nvim"
     alias vim="nvim"
     alias diff="colordiff -u"
@@ -56,8 +80,8 @@ export PATH=$PATH:/opt/android-sdk/platform-tools
 export PATH=$PATH:/opt/android-sdk/tools
 export PATH=$PATH:/opt/android-ndk/
 export PATH=$PATH:/opt/ant/bin
-# Library paths
-export PATH=$PATH:/usr/local/lib
+# Local bins
+export PATH=$PATH:/usr/local/bin
 # JRE and JDK paths
 export PATH=$PATH:/opt/java/jre/bin
 export PATH=$PATH:/opt/java/jdk/bin
@@ -92,6 +116,11 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias alsaeq='alsamixer -D equal'
+function cs {
+    cd $*
+    ls
+}
 # NYAN
 alias nyan='telnet nyancat.dakko.us'
 
