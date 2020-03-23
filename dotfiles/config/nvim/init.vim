@@ -51,10 +51,10 @@ map <ScrollWheelDown> <C-E>
 set scrolloff=8
 
 " Disable hjkl
-"noremap h <NOP>
+noremap h <NOP>
 "noremap j <NOP>
 "noremap k <NOP>
-"noremap l <NOP>
+noremap l <NOP>
 
 " Remove trailing spaces
 augroup vimrc_remove_trailing_spaces
@@ -77,7 +77,7 @@ set modelines=0
 set lazyredraw
 
 let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname == "johan-desktop" || hostname == "johan-laptop2"
+if hostname == "johan-desktop" || hostname == "johan-laptop2" || hostname == "lnxjohanbj"
   " Pathogen
   execute pathogen#infect()
 
@@ -86,6 +86,6 @@ if hostname == "johan-desktop" || hostname == "johan-laptop2"
   nmap , :NERDTreeToggle<CR>
 
   " theme
-  colorscheme molokai
-  colorscheme hybrid
+  "colorscheme molokai
+  "colorscheme hybrid
 endif
