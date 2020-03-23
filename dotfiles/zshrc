@@ -1,16 +1,19 @@
-export GST_DEBUG_DUMP_DOT_DIR=~
+export GST_DEBUG_DUMP_DOT_DIR=/tmp
 alias diff="colordiff -u"
+
+export AXIS_BWC_IP="fe80::aecc:8eff:fef1:f2be%eth0"
 
 # -R shows ansi colorcodes
 export LESS="-R"
 
 function proxy_enable () {
-    export GIT_PROXY_COMMAND="axis-git-proxy"
+    export GIT_PROXY_COMMAND=$(which axis-git-proxy)
     export ALL_PROXY="socks://socks.se.axis.com:1081/?"
     export {http,ftp}_proxy='http://wwwproxy.se.axis.com:3128'
     export https_proxy='https://wwwproxy.se.axis.com:3128'
     export {HTTP,FTP}_PROXY='http://wwwproxy.se.axis.com:3128'
     export HTTPS_PROXY='https://wwwproxy.se.axis.com:3128'
+    export no_proxy="localhost,127.0.0.0/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/12,.se.axis.com"
     alias pip="pip --proxy ${https_proxy}"
     alias pip3="pip3 --proxy ${https_proxy}"
 }
@@ -20,6 +23,7 @@ function proxy_disable () {
     export ALL_PROXY=
     export {http,ftp,https}_proxy=
     export {HTTP,FTP,HTTPS}_PROXY=
+    export no_proxy=
     unalias pip
     unalias pip3
 }
@@ -62,8 +66,8 @@ export EDITOR="vim"
 if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohanbj\|x201\)')" ]]
 then
     alias e="ALL_PROXY= HTTP_PROXY= http_proxy= nvim"
-    export EDITOR="nvim"
-    alias vim="nvim"
+    export EDITOR="e"
+    alias vim="e"
     alias diff="colordiff -u"
 else
     alias diff="diff -u"
@@ -100,6 +104,9 @@ export PATH=$PATH:~/.gem/ruby/2.1.0/bin
 # Path to music
 export pathtomusic=/home/johan/Music/
 export mpd_music_dir=/home/johan/Music/
+
+# Add ~/.local/share to XDG_DATA_DIRS
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}:/home/${USER}/.local/share"
 
 ## Mina aliases
 # kommandon
