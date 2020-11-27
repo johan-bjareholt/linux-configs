@@ -35,7 +35,7 @@ alias ".........."="cd ../../../../../../../../../"
 autoload -Uz promptinit
 promptinit
 
-if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop\|lnxjohanbj\|x201\)')" ]]
+if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop2\|lnxjohanbj\|x201\)')" ]]
 then
     alias e='nvim'
     export EDITOR="nvim"
@@ -48,16 +48,17 @@ fi
 export GTK_THEME=Adwaita:dark
 export XKB_DEFAULT_LAYOUT=se
 export XKB_DEFAULT_OPTIONS=caps:super
+export MOZ_ENABLE_WAYLAND=1
 
 ## Path variables
+# usr/local/bin paths
+export PATH=$PATH:/usr/local/bin
 # Android paths
 export ANDROID_HOME=/opt/android-sdk/
 export PATH=$PATH:/opt/android-sdk/platform-tools
 export PATH=$PATH:/opt/android-sdk/tools
 export PATH=$PATH:/opt/android-ndk/
 export PATH=$PATH:/opt/ant/bin
-# Library paths
-export PATH=$PATH:/usr/local/lib
 # JRE and JDK paths
 export PATH=$PATH:/opt/java/jre/bin
 export PATH=$PATH:/opt/java/jdk/bin
@@ -65,6 +66,8 @@ export PATH=$PATH:/opt/java/jdk/bin
 export GOPATH=~/.go
 # Rust Cargo
 export PATH=$PATH:~/.cargo/bin
+#
+export PATH=$PATH:~/Programming/Linux/linux-configs/bin
 
 # App Engine
 export PATH=$PATH:/opt/google-appengine-go/
@@ -85,6 +88,7 @@ alias linec="find . -type f | xargs wc -l"
 alias steam-wine="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe"
 alias irc="ssh -p 1822 -t home.johan.bjareholt.com 'screen -x irc'"
 alias deluge-forward="ssh -p 2222 -f newton.bjareholt.com -L 2000:localhost:8112 -N"
+alias size="du -s ./* | sort -n"
 # ls aliases
 alias info="info --vi-keys"
 alias ls='ls --color=auto'
@@ -95,11 +99,11 @@ alias l='ls -CF'
 # NYAN
 alias nyan='telnet nyancat.dakko.us'
 
-## Home&End fix
+# Home & End fix
 bindkey  "^[[1~"   beginning-of-line
 bindkey  "^[[4~"   end-of-line
 
-## Make speedup
+# Make speedup
 NC=`cat /proc/cpuinfo | grep processor | wc -l`
 alias make="make --jobs=$NC"
 
@@ -110,7 +114,6 @@ export BSPWM_SOCKET="/tmp/bspwm-socket"
 
 # ssh agent service
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-
 
 
 ## Prompt
@@ -132,6 +135,10 @@ HISTFILE=~/.zsh_history
 autoload -Uz compinit
 compinit
 
+# Enabled ctrl+r fuzzy history search
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 # Set title
 preexec () {
     print -Pn "\e]0;${USER}@${HOST}: ${PWD}\a"
@@ -139,10 +146,3 @@ preexec () {
 precmd () {
     print -Pn "\e]0;${USER}@${HOST}: ${PWD}\a"
 }
-
-if [ "$HOST" = "johan-desktop" ]; then
-source ~/Programming/activitywatch/aw-watcher-bash/aw-watcher-bash.sh
-fi
-if [ "$HOST" = "johan-laptop2" ]; then
-source ~/Programming/activitywatch/aw-watcher-bash/aw-watcher-bash.sh
-fi
