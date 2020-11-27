@@ -72,7 +72,7 @@ while read -r line ; do
 							PRE="%{F"$FG"}%{B"$BG"}"$PRE
 							POST=$POST"%{B-}%{F-}"
 							WSD="$PRE${name:1:1}$POST "
-							if [ "$screenC" > 0 ]; then
+							if [ "$screenC" -gt 0 ]; then
 								if [ "$screenN" = "${name:0:1}" ]; then
 									WORKSPACE=$WORKSPACE$WSD
 								fi
@@ -84,7 +84,7 @@ while read -r line ; do
 						L*)
 							# LAYOUT
 							LAYOUT=$(printf "%s" "${item#?}" | sed 's/^\(.\).*/\U\1/')
-							
+
 							if [ "$LAYOUT" = 'T' ]; then
 								li="Tile"
 							elif [ "$LAYOUT" = 'M' ]; then
@@ -98,33 +98,32 @@ while read -r line ; do
 				IFS=$NORMIFS
 				;;
 		esac
-		
-		#	
+
+		#
 		#	Applets
 		#
-	
+
 		# Left
 		WORKSPACE=${WORKSPACESCREEN[$screenN]}
-		
+
 		# Center
 		TIME=$(date +'%H:%M')
-		
+
 		# Right
 		#Volume
 		VOLUME="Vol: "$(~/Scripts/volume.sh get)
 		# System load
 		SYSLOAD=$( uptime | awk '{ printf "Load %.2f",$8 }' )
 		# Battery
-		if [ $(uname -n) = "johan-laptop" ]; then
-			BATTERY=$(acpi | awk '{print $4}')
-			BATTERY=${BATTERY:0:3}
+        if [ $(uname -n) = "johan-laptop" ] || [ $(uname -n) = "johan-laptop2" ] ; then
+            BATTERY=$(acpi | sed -e 's/[^1-9]*\([0-9]\+%\).*/\1/g')
 			BATTERY='Bat: '$BATTERY
 		fi
 		# Memory free
 		MEMFREE=$( free | grep Mem | awk '{print $3/$2 * 100.0}')
 		MEMFREE=$( cut -d '.' -f 1 <<< $MEMFREE )
 		MEMFREE="Ram: "${MEMFREE:0:2}"%"
-	
+
 		#
 		# Right
 		#
@@ -140,15 +139,15 @@ while read -r line ; do
 		elif [ $screenN = 3 ]; then
 			RIGHT="$VOLUME"
 		fi
-		
+
 		#
 		#	Alignment and concatination
 		#
-		
+
 		# Left
 		LEFT="$WORKSPACE"
 		LEFT="%{l} $LEFT"
-	
+
 		# Center
 		CENTER="$TIME"
 		CENTER="%{c}$CENTER"

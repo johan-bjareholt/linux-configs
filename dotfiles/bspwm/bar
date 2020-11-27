@@ -1,14 +1,21 @@
 #!/bin/bash
 
+PANEL_HEIGHT=20
+FONT_SIZE=$(( PANEL_HEIGHT - 6 ))
+
+
 FG='#FFFFFF'
-BG='#504545'
-FONT="-*-liberation mono-medium-r-*-*-12-*-*-*-*-*-*-*"
+BG='#202020'
+FONT="-*-liberation mono-medium-r-*-*-$FONT_SIZE-*-*-*-*-*-*-*"
+#FONT="-*-droid sans mono-medium-r-*-*-$FONT_SIZE-*-*-*-*-*-*-*"
+FONT="-*-dejavu sans mono-medium-r-*-*-$FONT_SIZE-*-*-*-*-*-*-*"
 PANEL_FIFO=/tmp/panelfifo
 
+rm -f $PANEL_FIFO
 mkfifo $PANEL_FIFO
 
 bspc config top_padding $PANEL_HEIGHT
-bspc subscribe all > "$PANEL_FIFO" &
+bspc subscribe report > "$PANEL_FIFO" &
 
 
 screenC=1
@@ -16,13 +23,12 @@ if [ $HOSTNAME = "johan-desktop" ]; then
 	screenC=3
 fi
 
-
-cat "$PANEL_FIFO" | ~/.bspwm/bartext $screenC | lemonbar -p -B $BG -F $FG -f "$FONT" &
+cat $PANEL_FIFO | ~/.bspwm/bartext2 $screenC | lemonbar -p -B $BG -F $FG -f "$FONT" &
 
 $(
 while true
   do
-	echo T > $PANEL_FIFO
-	sleep 60
+    echo T > $PANEL_FIFO
+    sleep 10
 done
 )

@@ -5,24 +5,47 @@
 
 # Setup monitors
 $(
-	if [ "$HOSTNAME" = "johan-desktop" ]
-	  then
-		xrandr --output HDMI-0 --pos 0x0 --rotate left
-		xrandr --output DVI-D-0 --right-of HDMI-0 --primary --mode 1920x1080
-		xrandr --output DVI-I-0 --right-of DVI-D-0 --rotate left
+	if [ "$HOSTNAME" = "johan-desktop" ]; then
+    xrandr \
+        --output DP-1 --mode 3840x2160 --primary \
+        --output HDMI-2 --mode 1280x1024 --right-of DP-1 --rotate right \
+        --output DP-2 --mode 1280x1024 --left-of DP-1 --rotate left
+    #    xrandr --output HDMI-1 --mode 1920x1080 --primary \
+    #        --output DP-1 --mode 1280x1024 --rate 60 --right-of HDMI-1
+	#	xrandr --output DVI-I-0 --pos 0x0
+	#	xrandr --output DVI-D-0 --right-of DVI-I-0 --primary --mode 1920x1080
+	#	xrandr --output HDMI-0  --right-of DVI-D-0
 	fi
-	feh --bg-fill ~/Pictures/Wallpapers/arch-black-welcome-home.png
+	feh --bg-fill ~/Pictures/Wallpapers/Abstract\ Mountains.png
+    sleep 1
 	# Panel
 	$HOME/.bspwm/bar &
 ) &
 
+if [ "$HOSTNAME" = "johan-laptop2"]
+then
+    # Increase DPI on laptop
+    xrandr --dpi 144
+    # Remove palm detection
+    xinput set-prop 13 297 0
+fi
+
+# Map caps to super
+setxkbmap -option caps:super
 
 # Set mouse cursor
-xsetroot -cursor_name left_ptr &
+xsetroot -cursor_name left_ptr
 
 # Autostart applications
 start-pulseaudio-x11 &
+pulseaudio-dlna &
 wmname LG3D &
+redshift -t 5500:3000 -b 1.0:0.7 &
+
+# activitywatch
+systemctl --user start aw-server &
+aw-watcher-afk &> ~/.aw-watcher-afk.log &
+aw-watcher-window &> ~/.aw-watcher-window.log &
 
 # Start DE components
 compton -D 0 &

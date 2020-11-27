@@ -1,56 +1,31 @@
 #!/bin/bash
 
-STATUS=""
-
-# Function to get mixer toggle status
-function status(){
-	STATUS=$(amixer get Master | tr -d '[]' | grep "Playback.*%" | grep -oE '[^ ]+$' | head -n 1)
-	echo $STATUS
-}
-
-# Function to toggle volume
-function toggle(){
-	status()
-	if [ STATUS = "on" ]
-	  then
-	    amixer -c 0 set Master mute
-		echo muted
-	else
-	    for CHANNEL in "Master" "Headphone" "PCM" "Side" "Front" "LFE" "Surround" "Center"
-	      do
-	        amixer -c 0 set $CHANNEL unmute
-	    done
-		echo unmuted
-	fi
-
-}
-
-function increase(){
-	amixer -c 0 set Master $1%+
+# Function to update bspwm panel
+function ping(){
 	echo "V" > /tmp/panelfifo
 }
-function decrease(){
-	amixer -c 0 set Master $1%-
-	echo "V" > /tmp/panelfifo
-}
-
 
 # Get current volume %
-if [ $1 = "get" ]; then
-	VOLUME=$(amixer get Master | tail -n 1 | cut -d '[' -f 2 | sed 's/%.*//g')
-	echo $VOLUME
+if [ "$1" = "get" ]; then
+    VOLUME=$(amixer -D pulse get Master | tail -n 1 | grep -o '[0-9]*%')
+    echo $VOLUME
+# Get if pa us currently muted or not
+elif [ "$1" = "status" ]; then
+    # TODO: Fixme
+	echo "eh"
 # Raise volume
-elif [ $1 = "increase" ]; then
-	increase $2
+elif [ "$1" = "increase" ]; then
+    pactl set-sink-volume @DEFAULT_SINK@ +3%
+    ping
 # Decrease volume
-elif [ $1 = "decrease" ]; then
-	decrease $2
-elif [ $1 = "status" ]; then
-	status
+elif [ "$1" = "decrease" ]; then
+    pactl set-sink-volume @DEFAULT_SINK@ -3%
+    ping
 # Toggle volume
-elif [ $1 = "toggle" ]; then
-	toggle
-# Nope
+elif [ "$1" = "toggle" ]; then
+    pactl set-sink-mute combined toggle
+    ping
+# Fail
 else
 	echo "Invalid parameter"
 fi

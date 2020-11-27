@@ -77,7 +77,7 @@ set modelines=0
 set lazyredraw
 
 let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname == "johan-desktop" || hostname == "johan-laptop2" || hostname == "lnxjohanbj"
+if hostname == "johan-desktop" || hostname == "johan-laptop2" || hostname == "lnxjohanbj" || hostname == "johan-x201"
   " Pathogen
   execute pathogen#infect()
 

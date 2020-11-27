@@ -23,7 +23,7 @@ use_console_editor          = "yes"
 #
 now_playing_prefix          = "$4"
 now_playing_suffix          = "$9"
-progressbar_look            = "◾◾◽"
+#progressbar_look            = "◾◾◽"
 empty_tag_marker            = "[empty]"
 # Formats
 #song_list_format            = "$3{%A }|{%a }$7{%b }$0{%t}| $4$R{%7l}$9"
@@ -46,7 +46,8 @@ statusbar_visibility        = "no"
 titles_visibility           = "no"
 # Colors
 main_window_color           = "yellow"
-main_window_highlight_color = "white"
+current_item_prefix         = "$(white)$r"
+current_item_suffix         = "$/r$(end)"
 visualizer_color            = "green"
 header_window_color         = "cyan"
 volume_color                = "green"
