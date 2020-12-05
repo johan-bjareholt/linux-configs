@@ -152,7 +152,6 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 ## Prompt
 autoload -U colors && colors
 PROMPT="%{$fg[green]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg_no_bold[yellow]%}%1~ %{$fg[red]%}$%{$reset_color%} "
-RPROMPT="[%{$fg_no_bold[yellow]%}%!%{$reset_color%}]"
 
 
 
