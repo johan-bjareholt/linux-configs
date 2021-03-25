@@ -60,9 +60,9 @@ export EDITOR="vim"
 
 if [[ ! -z "$(echo $HOST | grep '\(desktop\|laptop2\|lnxjohanbj\|x201\)')" ]]
 then
-    alias e="ALL_PROXY= HTTP_PROXY= http_proxy= nvim"
-    export EDITOR="e"
-    alias vim="e"
+    export EDITOR="ALL_PROXY= HTTP_PROXY= http_proxy= nvim"
+    alias e="$EDITOR"
+    alias vim="$EDITOR"
     alias diff="colordiff -u"
 else
     alias diff="diff -u"
@@ -76,6 +76,9 @@ export MOZ_ENABLE_WAYLAND=1
 ## Path variables
 # usr/local/bin paths
 export PATH=$PATH:/usr/local/bin
+# archlinux bug, fixes path for ack
+# https://bugs.archlinux.org/task/26512
+export PATH=$PATH:/usr/bin/vendor_perl/
 # Android paths
 export ANDROID_HOME=/opt/android-sdk/
 export PATH=$PATH:/opt/android-sdk/platform-tools
@@ -108,6 +111,9 @@ export mpd_music_dir=/home/johan/Music/
 # Add ~/.local/share to XDG_DATA_DIRS
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}:/home/${USER}/.local/share"
 
+export erb="217.211.96.76"
+alias server="ssh -p 22022 $erb"
+
 ## Mina aliases
 # kommandon
 alias findproc="ps aux | grep"
@@ -115,7 +121,8 @@ function pyman(){ python -c "help($1)" }
 alias linec="find . -type f | xargs wc -l"
 alias steam-wine="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe"
 alias irc="ssh -p 1822 -t home.johan.bjareholt.com 'screen -x irc'"
-alias deluge-forward="ssh -p 2222 -f newton.bjareholt.com -L 2000:localhost:8112 -N"
+alias deluge-forward-thin="ssh -p 22022 -f $erb -L 58846:localhost:58846 -N"
+alias deluge-forward-web="ssh -p 22022 -f $erb -L 2000:localhost:8112 -N"
 alias size="du -s ./* | sort -n"
 # ls aliases
 alias info="info --vi-keys"
