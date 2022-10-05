@@ -18,6 +18,9 @@ set shiftwidth=4 " size of an "indent" in terms of spaces
 " Tabs instead of spaces in Makefiles
 autocmd FileType make set noexpandtab
 
+" 2 spaces instead of tabs in C files
+autocmd FileType c set shiftwidth=2
+
 " Show non-whitespace characters (tab, newline etc)
 set list
 
@@ -29,9 +32,6 @@ set incsearch
 
 " Live substitute preview
 set inccommand=split
-
-" jk is escape
-inoremap jk <esc>
 
 " Always have status line for each buffer
 set laststatus=2
@@ -51,10 +51,10 @@ map <ScrollWheelDown> <C-E>
 set scrolloff=8
 
 " Disable hjkl
-noremap h <NOP>
+"noremap h <NOP>
 "noremap j <NOP>
 "noremap k <NOP>
-noremap l <NOP>
+"noremap l <NOP>
 
 " Remove trailing spaces
 augroup vimrc_remove_trailing_spaces
@@ -76,14 +76,17 @@ set modelines=0
 " Don't redraw while executing macros (improves performance)
 set lazyredraw
 
+" Make it possible to exit terminal mode with CTRL+Esc
+tnoremap <C-Esc> <C-\\><C-n>
+
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "johan-desktop" || hostname == "johan-laptop2" || hostname == "lnxjohanbj" || hostname == "johan-x201"
   " Pathogen
   execute pathogen#infect()
 
   " NERDTree binding
-  map <C-n> :NERDTreeToggle<CR>
-  nmap , :NERDTreeToggle<CR>
+  "map <C-n> :NERDTreeToggle<CR>
+  "nmap , :NERDTreeToggle<CR>
 
   " theme
   "colorscheme molokai
