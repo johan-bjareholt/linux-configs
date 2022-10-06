@@ -1,18 +1,13 @@
 export GST_DEBUG_DUMP_DOT_DIR=/tmp
 alias diff="colordiff -u"
 
-export AXIS_BWC_IP="fe80::aecc:8eff:fef1:f2be%eth0"
-
 # -R shows ansi colorcodes
 export LESS="-R"
 
 function proxy_enable () {
     export GIT_PROXY_COMMAND=$(which axis-git-proxy)
-    export ALL_PROXY="socks://socks.se.axis.com:1081/?"
-    export {http,ftp}_proxy='http://wwwproxy.se.axis.com:3128'
-    export https_proxy='https://wwwproxy.se.axis.com:3128'
-    export {HTTP,FTP}_PROXY='http://wwwproxy.se.axis.com:3128'
-    export HTTPS_PROXY='https://wwwproxy.se.axis.com:3128'
+    export {http,https,ftp}_proxy='http://wwwproxy.se.axis.com:3128'
+    export {HTTP,HTTPS,FTP}_PROXY='http://wwwproxy.se.axis.com:3128'
     export no_proxy="localhost,127.0.0.0/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/12,.se.axis.com"
     alias pip="pip --proxy ${https_proxy}"
     alias pip3="pip3 --proxy ${https_proxy}"
@@ -20,7 +15,6 @@ function proxy_enable () {
 
 function proxy_disable () {
     export GIT_PROXY_COMMAND=
-    export ALL_PROXY=
     export {http,ftp,https}_proxy=
     export {HTTP,FTP,HTTPS}_PROXY=
     export no_proxy=
@@ -37,6 +31,8 @@ if [ "$HOSTNAME" = "lnxjohanbj" ]; then
     export AXIS_TARGET_ADDR=y
     export AXIS_TARGET_IP=192.168.0.90
     export AXIS_RESUME=y
+    export AXIS_ONVIF_USER=onvif
+    export AXIS_ONVIF_PASS=onvif
 
     proxy_enable
 fi
@@ -177,6 +173,11 @@ compinit
 # Enabled ctrl+r fuzzy history search
 bindkey -v
 bindkey '^R' history-incremental-search-backward
+
+# Disable Software Flow Control XOFF (default Ctrl+s)
+# Will otherwise freeze stdin/stdout for a few seconds.
+# I seriously question why this is a feature to begin with.
+stty stop ""
 
 # Set title
 preexec () {
